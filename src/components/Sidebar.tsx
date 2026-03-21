@@ -2,14 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
-  LayoutDashboard, 
-  Activity, 
-  Package, 
-  DollarSign, 
-  Calculator, 
-  FileText, 
-  CreditCard, 
-  Users,
   ChevronLeft,
   ChevronRight,
   Lock
@@ -17,22 +9,12 @@ import {
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useAuth } from '../context/AuthContext';
+import { MENU_ITEMS } from '../config/menu';
 
 interface SidebarProps {
   isCollapsed: boolean;
   setIsCollapsed: (value: boolean) => void;
 }
-
-const MENU_ITEMS = [
-  { path: '/', name: 'Dashboard', icon: LayoutDashboard, isConfidential: false },
-  { path: '/production', name: 'Production Tracking', icon: Activity, isConfidential: false },
-  { path: '/warehouse', name: 'Warehouse', icon: Package, isConfidential: false },
-  { path: '/financial', name: 'Financial', icon: DollarSign, isConfidential: true },
-  { path: '/cost-control', name: 'Cost Control', icon: Calculator, isConfidential: true },
-  { path: '/quotation', name: 'Quotation', icon: FileText, isConfidential: true },
-  { path: '/credit-analysis', name: 'Credit Analysis', icon: CreditCard, isConfidential: true },
-  { path: '/permissions', name: 'User Permissions', icon: Users, isConfidential: true },
-];
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
   const { user } = useAuth();

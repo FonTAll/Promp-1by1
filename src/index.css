@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "JetBrains Mono", "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
   --font-system: "JetBrains Mono", "Noto Sans Thai", sans-serif;
 }
 

@@ -12,7 +12,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Pages
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Calendar from './pages/Calendar';
 import PlaceholderPage from './pages/PlaceholderPage';
+import UserPermissions from './pages/UserPermissions';
 
 export default function App() {
   return (
@@ -26,6 +28,11 @@ export default function App() {
             <Route path="/" element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            } />
+            <Route path="/calendar" element={
+              <ProtectedRoute>
+                <Calendar />
               </ProtectedRoute>
             } />
             
@@ -64,7 +71,7 @@ export default function App() {
             } />
             <Route path="/permissions" element={
               <ProtectedRoute isConfidential>
-                <PlaceholderPage title="User Permissions" />
+                <UserPermissions />
               </ProtectedRoute>
             } />
             
