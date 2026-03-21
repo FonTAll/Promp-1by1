@@ -107,22 +107,31 @@ export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
         })}
       </nav>
 
-      {/* User Profile Area */}
+      {/* Actual User Profile Area */}
       {user && (
         <div className="border-t border-gray-200 p-4">
           <div className={clsx("flex items-center", isCollapsed ? "justify-center" : "gap-3")}>
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-200 text-gray-600 font-bold">
-              {user.name.charAt(0)}
-            </div>
+            {user.avatar ? (
+              <img 
+                src={user.avatar} 
+                alt={user.name} 
+                className="h-10 w-10 shrink-0 rounded-full object-cover border border-gray-200"
+              />
+            ) : (
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold">
+                {user.name.charAt(0)}
+              </div>
+            )}
             {!isCollapsed && (
               <div className="flex flex-col overflow-hidden">
                 <span className="truncate text-sm font-medium text-gray-900">{user.name}</span>
-                <span className="truncate text-xs text-gray-500">{user.role}</span>
+                <span className="truncate text-xs text-blue-600 font-medium">{user.role}</span>
               </div>
             )}
           </div>
         </div>
       )}
+
     </motion.aside>
   );
 }

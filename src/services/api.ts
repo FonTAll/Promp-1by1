@@ -41,6 +41,7 @@ const mockResponse = async (action: string, data: any): Promise<ApiResponse> => 
           employeeId: data.employeeId,
           name: isDemo ? 'Demo User' : 'Administrator',
           role: isDemo ? 'Viewer' : 'Admin',
+          avatar: 'https://drive.google.com/thumbnail?id=1Z_fRbN9S4aA7OkHb3mlim_t60wIT4huY&sz=w400',
           permissions: {
             canCreate: !isDemo,
             canEdit: !isDemo,

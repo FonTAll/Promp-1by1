@@ -39,7 +39,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen w-full bg-white">
+    <div className="flex min-h-screen w-full bg-white font-sans">
       {/* Left Panel - Branding (Hidden on mobile) */}
       <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-r from-[#031520] to-[#083A59] p-12 lg:flex">
         {/* Background Image (Shadow/Watermark effect) */}
@@ -104,23 +104,44 @@ export default function Login() {
         </div>
 
         {/* Footer */}
-        <div className="relative z-10 text-sm text-white/70">
-          <div className="font-semibold text-white text-base mb-2">T All Intelligence</div>
-          <div className="flex flex-wrap items-center gap-3">
-            <span>Smart Solutions</span>
-            <span className="text-white/30">|</span>
-            <span className="flex items-center gap-1.5"><Phone size={14} /> 082-5695654</span>
-            <span className="text-white/30">|</span>
-            <span className="flex items-center gap-1.5"><Mail size={14} /> tallintelligence.ho@gmail.com</span>
+        <div className="relative z-10 flex w-full items-end justify-between">
+          <div className="text-sm text-white/70">
+            <div className="font-semibold text-white text-base mb-2">T All Intelligence</div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span>Smart Solutions</span>
+              <span className="text-white/30">|</span>
+              <span className="flex items-center gap-1.5"><Phone size={14} /> 082-5695654</span>
+              <span className="text-white/30">|</span>
+              <span className="flex items-center gap-1.5"><Mail size={14} /> tallintelligence.ho@gmail.com</span>
+            </div>
+            <div className="mt-4 text-xs text-white/40 tracking-wider">
+              &copy; 2026 ALL RIGHTS RESERVED
+            </div>
           </div>
-          <div className="mt-4 text-xs text-white/40 tracking-wider">
-            &copy; 2026 ALL RIGHTS RESERVED
-          </div>
+
+          {/* DEV Profile Badge */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.5 }}
+            className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-3 shadow-lg transition-all hover:bg-white/10"
+          >
+            <img 
+              src="https://drive.google.com/thumbnail?id=1Z_fRbN9S4aA7OkHb3mlim_t60wIT4huY&sz=w400" 
+              alt="T-DCC Developer" 
+              className="h-11 w-11 shrink-0 rounded-full object-cover border-2 border-white/20 shadow-sm"
+            />
+            <div className="flex flex-col pr-2">
+              <span className="text-sm font-bold text-white leading-tight">T-DCC Developer</span>
+              <span className="text-xs font-semibold text-[#F28241] leading-tight mt-0.5">Lead Developer</span>
+              <span className="text-[10px] text-white/50 mt-1">tallintelligence.dcc@gmail.com</span>
+            </div>
+          </motion.div>
         </div>
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex w-full items-center justify-center p-8 sm:p-12 lg:w-1/2">
+      <div className="relative flex w-full items-center justify-center p-8 sm:p-12 lg:w-1/2">
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -220,6 +241,7 @@ export default function Login() {
             </div>
           </form>
         </motion.div>
+
       </div>
     </div>
   );

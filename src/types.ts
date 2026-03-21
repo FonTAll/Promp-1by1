@@ -10,6 +10,7 @@ export interface User {
   employeeId: string;
   name: string;
   role: string;
+  avatar?: string;
   permissions: UserPermissions;
 }
 
