@@ -1,13 +1,11 @@
 import { 
   LayoutDashboard, 
-  CalendarDays,
-  Activity, 
-  Package, 
-  DollarSign, 
-  Calculator, 
-  FileText, 
-  CreditCard, 
-  Users 
+  ArrowDownToLine,
+  ArrowUpRight,
+  Boxes,
+  RotateCcw,
+  Settings,
+  Users
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -21,12 +19,10 @@ export interface MenuItem {
 
 export const MENU_ITEMS: MenuItem[] = [
   { id: 'dashboard', path: '/', name: 'Dashboard', icon: LayoutDashboard, isConfidential: false },
-  { id: 'calendar', path: '/calendar', name: 'Calendar', icon: CalendarDays, isConfidential: false },
-  { id: 'production', path: '/production', name: 'Production Tracking', icon: Activity, isConfidential: false },
-  { id: 'warehouse', path: '/warehouse', name: 'Warehouse', icon: Package, isConfidential: false },
-  { id: 'financial', path: '/financial', name: 'Financial', icon: DollarSign, isConfidential: true },
-  { id: 'cost-control', path: '/cost-control', name: 'Cost Control', icon: Calculator, isConfidential: true },
-  { id: 'quotation', path: '/quotation', name: 'Quotation', icon: FileText, isConfidential: true },
-  { id: 'credit-analysis', path: '/credit-analysis', name: 'Credit Analysis', icon: CreditCard, isConfidential: true },
+  { id: 'inbound', path: '/inbound', name: 'Inbound Control', icon: ArrowDownToLine, isConfidential: false },
+  { id: 'outbound', path: '/outbound', name: 'Outbound Control', icon: ArrowUpRight, isConfidential: false },
+  { id: 'inventory', path: '/inventory', name: 'Inventory Core', icon: Boxes, isConfidential: false },
+  { id: 'returns', path: '/returns', name: 'Returns & QC', icon: RotateCcw, isConfidential: false },
+  { id: 'settings', path: '/settings', name: 'WMS Settings', icon: Settings, isConfidential: true },
   { id: 'permissions', path: '/permissions', name: 'User Permissions', icon: Users, isConfidential: true },
 ];

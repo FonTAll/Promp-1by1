@@ -4,7 +4,16 @@ import { motion } from 'motion/react';
 import { 
   ChevronLeft,
   ChevronRight,
-  Lock
+  Lock,
+  LogOut,
+  Warehouse,
+  LayoutDashboard,
+  ArrowDownToLine,
+  ArrowUpRight,
+  Boxes,
+  RotateCcw,
+  Settings,
+  ChevronRight as ChevronRightIcon
 } from 'lucide-react';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -17,100 +26,153 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <motion.aside
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
-      className="relative flex h-screen flex-col border-r border-gray-200 bg-white shadow-sm"
+      className="relative flex h-screen flex-col bg-[#111f42] shadow-sm z-20"
     >
       {/* Toggle Button */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-4 top-8 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-amber-400 text-white shadow-md hover:bg-amber-500 focus:outline-none"
+        className="absolute -right-4 top-8 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-[#E3624A] text-white shadow-md hover:bg-[#E3624A]/90 focus:outline-none"
       >
         {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
       </button>
 
       {/* Logo Area */}
-      <div className="flex h-20 items-center justify-center border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-xl">
-            C
+      <div className="flex h-24 items-center justify-center border-b border-white/5">
+        <div className="flex items-center gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E3624A] text-white shadow-lg">
+            <Warehouse size={24} />
           </div>
           {!isCollapsed && (
-            <motion.span 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-xl font-bold text-gray-800"
-            >
-              ClientPortal
-            </motion.span>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5 text-xl font-black tracking-widest">
+                <span className="text-white">WMS</span>
+                <span className="text-[#E3624A]">MASTER</span>
+              </div>
+              <span className="text-[9px] font-black text-slate-400 tracking-[0.2em] uppercase mt-0.5">
+                Warehouse System
+              </span>
+            </div>
           )}
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-6 px-3 space-y-1">
-        {MENU_ITEMS.map((item) => {
-          const Icon = item.icon;
-          
-          return (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) => twMerge(clsx(
-                "group flex items-center rounded-lg px-3 py-3 text-sm font-medium transition-colors relative",
-                isActive 
-                  ? "bg-blue-50 text-blue-700" 
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900",
-                isCollapsed && "justify-center"
-              ))}
-              title={isCollapsed ? item.name : undefined}
-            >
-              <Icon size={20} className={clsx("shrink-0", isCollapsed ? "mr-0" : "mr-3")} />
-              
-              {!isCollapsed && (
-                <span className="flex-1 truncate">{item.name}</span>
-              )}
+      <nav className="flex-1 overflow-y-auto py-6 px-4 space-y-6">
+        {/* Dashboard Button */}
+        <div>
+          <NavLink
+            to="/"
+            className={({ isActive }) => twMerge(clsx(
+              "group flex items-center rounded-xl px-4 py-3.5 text-sm font-black uppercase tracking-wider transition-all",
+              isActive || window.location.pathname === '/'
+                ? "bg-[#E3624A] text-white shadow-md shadow-[#E3624A]/20" 
+                : "text-slate-300 hover:bg-white/5 hover:text-white",
+              isCollapsed && "justify-center px-0"
+            ))}
+            title={isCollapsed ? "Dashboard" : undefined}
+          >
+            <LayoutDashboard size={20} className={clsx("shrink-0", isCollapsed ? "mr-0" : "mr-4")} />
+            {!isCollapsed && <span>Dashboard</span>}
+          </NavLink>
+        </div>
 
-              {item.isConfidential && (
-                <Lock 
-                  size={14} 
-                  className={clsx(
-                    "text-red-500", 
-                    isCollapsed ? "absolute top-2 right-2" : "ml-auto"
-                  )} 
-                />
-              )}
-            </NavLink>
-          );
-        })}
+        {/* Modules Section */}
+        <div>
+          {!isCollapsed && (
+            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-4 px-2">
+              WMS Modules
+            </h3>
+          )}
+          <div className="space-y-1.5">
+            {MENU_ITEMS.filter(item => item.id !== 'dashboard').map((item) => {
+              const Icon = item.icon;
+              
+              return (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) => twMerge(clsx(
+                    "group flex items-center rounded-xl px-4 py-3 text-xs font-bold uppercase tracking-wider transition-all",
+                    isActive 
+                      ? "bg-white/10 text-white" 
+                      : "text-slate-400 hover:bg-white/5 hover:text-white",
+                    isCollapsed && "justify-center px-0"
+                  ))}
+                  title={isCollapsed ? item.name : undefined}
+                >
+                  <Icon size={18} className={clsx("shrink-0", isCollapsed ? "mr-0" : "mr-4")} />
+                  
+                  {!isCollapsed && (
+                    <>
+                      <span className="flex-1 truncate">{item.name}</span>
+                      <ChevronRightIcon size={14} className="text-slate-500 group-hover:text-white transition-colors" />
+                    </>
+                  )}
+
+                  {item.isConfidential && (
+                    <Lock 
+                      size={12} 
+                      className={clsx(
+                        "text-red-400", 
+                        isCollapsed ? "absolute top-2 right-2" : "ml-2"
+                      )} 
+                    />
+                  )}
+                </NavLink>
+              );
+            })}
+          </div>
+        </div>
       </nav>
 
       {/* Actual User Profile Area */}
       {user && (
-        <div className="border-t border-gray-200 p-4">
-          <div className={clsx("flex items-center", isCollapsed ? "justify-center" : "gap-3")}>
-            {user.avatar ? (
-              <img 
-                src={user.avatar} 
-                alt={user.name} 
-                className="h-10 w-10 shrink-0 rounded-full object-cover border border-gray-200"
-              />
-            ) : (
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700 font-bold">
-                {user.name.charAt(0)}
-              </div>
-            )}
+        <div className="bg-[#0a1329] p-4">
+          <div className={clsx("flex items-center justify-between", isCollapsed ? "justify-center" : "gap-3")}>
+            <div className="flex items-center gap-3 overflow-hidden">
+              {user.avatar ? (
+                <img 
+                  src={user.avatar} 
+                  alt={user.name} 
+                  className="h-10 w-10 shrink-0 rounded-full object-cover border-2 border-[#111f42]"
+                />
+              ) : (
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E3624A] text-white font-bold">
+                  {user.name.charAt(0)}
+                </div>
+              )}
+              {!isCollapsed && (
+                <div className="flex flex-col overflow-hidden">
+                  <span className="truncate text-xs font-black text-white uppercase tracking-wider">{user.name}</span>
+                  <span className="truncate text-[9px] text-[#E3624A] font-black uppercase tracking-widest mt-0.5">{user.role || 'LEAD DEVELOPER'}</span>
+                </div>
+              )}
+            </div>
             {!isCollapsed && (
-              <div className="flex flex-col overflow-hidden">
-                <span className="truncate text-sm font-medium text-gray-900">{user.name}</span>
-                <span className="truncate text-xs text-blue-600 font-medium">{user.role}</span>
-              </div>
+              <button 
+                onClick={logout} 
+                className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors shrink-0" 
+                title="Logout"
+              >
+                <LogOut size={16} />
+              </button>
             )}
           </div>
+          {isCollapsed && (
+            <button 
+              onClick={logout} 
+              className="mt-4 w-full flex justify-center p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors" 
+              title="Logout"
+            >
+              <LogOut size={16} />
+            </button>
+          )}
         </div>
       )}
 

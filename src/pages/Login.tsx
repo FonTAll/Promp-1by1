@@ -41,7 +41,7 @@ export default function Login() {
   return (
     <div className="flex min-h-screen w-full bg-white font-sans">
       {/* Left Panel - Branding (Hidden on mobile) */}
-      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-r from-[#031520] to-[#083A59] p-12 lg:flex">
+      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-gradient-to-r from-[#0a1726] to-[#111f42] p-12 lg:flex">
         {/* Background Image (Shadow/Watermark effect) */}
         <div 
           className="absolute inset-0 z-0 opacity-15 mix-blend-luminosity"
@@ -53,14 +53,14 @@ export default function Login() {
         />
         
         {/* Abstract Background Shapes using the provided palette */}
-        <div className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-[#8C2E47] opacity-40 blur-[100px]"></div>
-        <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-[#F28241] opacity-30 blur-[100px]"></div>
-        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#BF533B] opacity-20 blur-[80px]"></div>
+        <div className="absolute -left-24 -top-24 h-96 w-96 rounded-full bg-[#952425] opacity-40 blur-[100px]"></div>
+        <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-[#E3624A] opacity-30 blur-[100px]"></div>
+        <div className="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ab8a3b] opacity-20 blur-[80px]"></div>
 
         {/* Top Logo Area */}
         <div className="relative z-10">
           <div className="flex items-center gap-3 text-white">
-            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#F28241] shadow-lg">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#E3624A] shadow-lg">
               <Package size={24} className="text-white" />
             </div>
             <span className="text-xl font-bold tracking-wider">ENTERPRISE</span>
@@ -93,11 +93,11 @@ export default function Login() {
             className="mt-12 grid grid-cols-2 gap-6 border-t border-white/10 pt-8"
           >
             <div>
-              <div className="text-3xl font-bold text-[#F28241]">99.9%</div>
+              <div className="text-3xl font-bold text-[#E3624A]">99.9%</div>
               <div className="mt-1 text-sm text-white/60">Inventory Accuracy</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-[#F28241]">24/7</div>
+              <div className="text-3xl font-bold text-[#E3624A]">24/7</div>
               <div className="mt-1 text-sm text-white/60">Real-time Tracking</div>
             </div>
           </motion.div>
@@ -133,7 +133,7 @@ export default function Login() {
             />
             <div className="flex flex-col pr-2">
               <span className="text-sm font-bold text-white leading-tight">T-DCC Developer</span>
-              <span className="text-xs font-semibold text-[#F28241] leading-tight mt-0.5">Lead Developer</span>
+              <span className="text-xs font-semibold text-[#E3624A] leading-tight mt-0.5">Lead Developer</span>
               <span className="text-[10px] text-white/50 mt-1">tallintelligence.dcc@gmail.com</span>
             </div>
           </motion.div>
@@ -150,8 +150,8 @@ export default function Login() {
         >
           <div className="text-center lg:text-left">
             {/* Mobile Logo (Visible only on small screens) */}
-            <div className="mx-auto mb-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#083A59] lg:hidden">
-              <Package size={28} className="text-[#F28241]" />
+            <div className="mx-auto mb-8 flex h-12 w-12 items-center justify-center rounded-lg bg-[#111f42] lg:hidden">
+              <Package size={28} className="text-[#E3624A]" />
             </div>
             
             <h2 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -177,7 +177,7 @@ export default function Login() {
                     name="employeeId"
                     type="text"
                     required
-                    className="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#083A59] sm:text-sm sm:leading-6 transition-all"
+                    className="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#111f42] sm:text-sm sm:leading-6 transition-all"
                     placeholder="e.g., U001 or demo"
                     value={employeeId}
                     onChange={(e) => setEmployeeId(e.target.value)}
@@ -198,7 +198,7 @@ export default function Login() {
                     name="idCard"
                     type="password"
                     required
-                    className="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#083A59] sm:text-sm sm:leading-6 transition-all"
+                    className="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#111f42] sm:text-sm sm:leading-6 transition-all"
                     placeholder="13 digits or demo"
                     value={idCard}
                     onChange={(e) => setIdCard(e.target.value)}
@@ -211,9 +211,9 @@ export default function Login() {
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-lg bg-[#731702]/10 p-4 border border-[#731702]/20"
+                className="rounded-lg bg-[#ef4444]/10 p-4 border border-[#ef4444]/20"
               >
-                <p className="text-sm font-medium text-[#731702]">{error}</p>
+                <p className="text-sm font-medium text-[#ef4444]">{error}</p>
               </motion.div>
             )}
 
@@ -221,7 +221,7 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-[#083A59] px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#083A59]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#083A59] disabled:opacity-70 transition-all"
+                className="group relative flex w-full items-center justify-center gap-2 rounded-lg bg-[#111f42] px-4 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#111f42]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#111f42] disabled:opacity-70 transition-all"
               >
                 {isLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
@@ -236,8 +236,8 @@ export default function Login() {
             
             <div className="mt-8 rounded-lg bg-gray-50 p-4 text-center text-sm text-gray-600 border border-gray-100">
               <p className="font-medium text-gray-900 mb-1">Demo Credentials</p>
-              <p>User: <span className="font-mono font-medium text-[#083A59]">demo</span> / Pass: <span className="font-mono font-medium text-[#083A59]">demo</span></p>
-              <p className="mt-1">Admin: <span className="font-mono font-medium text-[#083A59]">U001</span> / Pass: <span className="font-mono font-medium text-[#083A59]">1234567890123</span></p>
+              <p>User: <span className="font-mono font-medium text-[#111f42]">demo</span> / Pass: <span className="font-mono font-medium text-[#111f42]">demo</span></p>
+              <p className="mt-1">Admin: <span className="font-mono font-medium text-[#111f42]">U001</span> / Pass: <span className="font-mono font-medium text-[#111f42]">1234567890123</span></p>
             </div>
           </form>
         </motion.div>

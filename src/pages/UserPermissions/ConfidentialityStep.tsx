@@ -15,7 +15,7 @@ const ConfidentialityStep: React.FC<Props> = ({ confidentialityMap, toggleConfid
       <div className="md:col-span-1 space-y-6">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
           <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
-            <Lock size={20} className="text-blue-600" />
+            <Lock size={20} className="text-[#111f42]" />
             Confidentiality Rules
           </h3>
           <div className="space-y-4 mt-4">
@@ -39,7 +39,7 @@ const ConfidentialityStep: React.FC<Props> = ({ confidentialityMap, toggleConfid
         </div>
         
         <div className="bg-gray-900 p-6 rounded-2xl shadow-lg text-white">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-blue-400 mb-4">Quick Summary</h4>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-[#72A09E] mb-4">Quick Summary</h4>
           <div className="space-y-3">
             <div className="flex justify-between items-center text-xs font-bold uppercase tracking-wider">
               <span className="text-gray-400">Total Modules</span>
@@ -70,7 +70,7 @@ const ConfidentialityStep: React.FC<Props> = ({ confidentialityMap, toggleConfid
 
             return (
               <div key={module.id} className="space-y-2">
-                <div className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isConfidential ? 'bg-red-50/50 border-red-100' : 'bg-white border-gray-200 hover:border-blue-300'}`}>
+                <div className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isConfidential ? 'bg-red-50/50 border-red-100' : 'bg-white border-gray-200 hover:border-[#72A09E]'}`}>
                   <div className="flex items-center gap-4">
                     <div className={`p-2.5 rounded-xl ${isConfidential ? 'bg-red-100 text-red-600' : 'bg-gray-100 text-gray-600'}`}>
                       <module.icon size={20} />

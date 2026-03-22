@@ -29,7 +29,7 @@ export const dbService = {
       const stored = localStorage.getItem(STORAGE_KEY);
       let users: User[] = stored ? JSON.parse(stored) : [];
       
-      const existingIndex = users.findIndex(u => u.id === user.id || u.id?.toString() === user.userId);
+      const existingIndex = users.findIndex(u => u.id === user.id || u.id?.toString() === (user as any).userId);
       
       if (existingIndex >= 0) {
         users[existingIndex] = { ...users[existingIndex], ...user };

@@ -12,7 +12,6 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Pages
 import Login from './pages/Login';
 import Home from './pages/Home';
-import Calendar from './pages/Calendar';
 import PlaceholderPage from './pages/PlaceholderPage';
 import UserPermissions from './pages/UserPermissions';
 
@@ -30,43 +29,33 @@ export default function App() {
                 <Home />
               </ProtectedRoute>
             } />
-            <Route path="/calendar" element={
-              <ProtectedRoute>
-                <Calendar />
-              </ProtectedRoute>
-            } />
             
             {/* General Modules (Read-only by default) */}
-            <Route path="/production" element={
+            <Route path="/inbound" element={
               <ProtectedRoute>
-                <PlaceholderPage title="Production Tracking" />
+                <PlaceholderPage title="Inbound Control" />
               </ProtectedRoute>
             } />
-            <Route path="/warehouse" element={
+            <Route path="/outbound" element={
               <ProtectedRoute>
-                <PlaceholderPage title="Warehouse" />
+                <PlaceholderPage title="Outbound Control" />
+              </ProtectedRoute>
+            } />
+            <Route path="/inventory" element={
+              <ProtectedRoute>
+                <PlaceholderPage title="Inventory Core" />
+              </ProtectedRoute>
+            } />
+            <Route path="/returns" element={
+              <ProtectedRoute>
+                <PlaceholderPage title="Returns & QC" />
               </ProtectedRoute>
             } />
 
             {/* Confidential Modules */}
-            <Route path="/financial" element={
+            <Route path="/settings" element={
               <ProtectedRoute isConfidential>
-                <PlaceholderPage title="Financial" />
-              </ProtectedRoute>
-            } />
-            <Route path="/cost-control" element={
-              <ProtectedRoute isConfidential>
-                <PlaceholderPage title="Cost Control" />
-              </ProtectedRoute>
-            } />
-            <Route path="/quotation" element={
-              <ProtectedRoute isConfidential>
-                <PlaceholderPage title="Quotation" />
-              </ProtectedRoute>
-            } />
-            <Route path="/credit-analysis" element={
-              <ProtectedRoute isConfidential>
-                <PlaceholderPage title="Credit Analysis" />
+                <PlaceholderPage title="WMS Settings" />
               </ProtectedRoute>
             } />
             <Route path="/permissions" element={

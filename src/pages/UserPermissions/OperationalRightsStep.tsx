@@ -46,7 +46,7 @@ const OperationalRightsStep: React.FC<Props> = ({
                   <td className="p-4 text-gray-900 font-medium">{user.position}</td>
                   <td className="p-4 text-xs">{user.email}</td>
                   <td className="p-4 text-center">
-                    <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${user.isDev ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>
+                    <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase ${user.isDev ? 'bg-[#F9F7F6] text-[#E3624A]' : 'bg-gray-100 text-gray-600'}`}>
                       {user.isDev ? 'Developer' : 'Standard User'}
                     </span>
                   </td>
@@ -78,7 +78,7 @@ const OperationalRightsStep: React.FC<Props> = ({
                 <th key={user.id} className="text-center min-w-[100px] text-xs uppercase tracking-wider text-gray-500 p-4 font-bold bg-gray-50 border-b border-gray-200 hover:bg-gray-100 transition-colors cursor-pointer" onClick={() => handleEditUser(user)}>
                   <div className="flex flex-col items-center gap-2 group">
                     <img src={user.avatar} className="w-8 h-8 rounded-full border border-white shadow-sm group-hover:scale-110 transition-transform" alt={user.name} />
-                    <span className="text-[10px] font-bold text-gray-900 whitespace-nowrap group-hover:text-blue-600">{user.name.split(' ')[0]}</span>
+                    <span className="text-[10px] font-bold text-gray-900 whitespace-nowrap group-hover:text-[#111f42]">{user.name.split(' ')[0]}</span>
                   </div>
                 </th>
               ))}
@@ -93,7 +93,7 @@ const OperationalRightsStep: React.FC<Props> = ({
                   <tr className="bg-gray-50/50 hover:bg-gray-100 transition-colors">
                     <td className="sticky left-0 z-10 bg-gray-50 p-3 font-bold text-gray-900 border-b border-gray-200 shadow-[2px_0_5px_rgba(0,0,0,0.05)] cursor-pointer select-none" onClick={() => hasSub && toggleExpand(module.id)}>
                       <div className="flex items-center gap-2">
-                        <module.icon size={16} className={confidentialityMap[module.id] ? "text-red-500" : "text-blue-600"} />
+                        <module.icon size={16} className={confidentialityMap[module.id] ? "text-red-500" : "text-[#111f42]"} />
                         {module.name}
                         {confidentialityMap[module.id] && <Lock size={12} className="text-red-500" />}
                         {hasSub && <ChevronDown size={14} className={`ml-auto text-gray-500 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />}

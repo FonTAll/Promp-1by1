@@ -76,24 +76,24 @@ const EditUserModal: React.FC<Props> = ({
                 <div className="space-y-4 flex-1">
                   <div>
                     <label className="text-xs font-bold text-gray-500 uppercase block mb-1.5">Image URL</label>
-                    <input type="text" name="avatar" value={formData.avatar} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"/>
+                    <input type="text" name="avatar" value={formData.avatar} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-[#111f42] focus:ring-1 focus:ring-[#111f42] outline-none transition-all"/>
                   </div>
                   <div>
                     <label className="text-xs font-bold text-gray-500 uppercase block mb-1.5">Full Name</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"/>
+                    <input type="text" name="name" value={formData.name} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-[#111f42] focus:ring-1 focus:ring-[#111f42] outline-none transition-all"/>
                   </div>
                   <div>
                     <label className="text-xs font-bold text-gray-500 uppercase block mb-1.5">Position</label>
-                    <input type="text" name="position" value={formData.position} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"/>
+                    <input type="text" name="position" value={formData.position} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-[#111f42] focus:ring-1 focus:ring-[#111f42] outline-none transition-all"/>
                   </div>
                   <div>
                     <label className="text-xs font-bold text-gray-500 uppercase block mb-1.5">Email</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all"/>
+                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full bg-gray-50 rounded-lg px-3 py-2 text-sm border border-gray-200 focus:border-[#111f42] focus:ring-1 focus:ring-[#111f42] outline-none transition-all"/>
                   </div>
                 </div>
                 
                 <div className="pt-4 border-t border-gray-200 mt-4">
-                  <button onClick={handleSave} className="w-full bg-blue-600 text-white py-2.5 rounded-xl text-sm font-bold uppercase hover:bg-blue-700 transition-all flex items-center justify-center gap-2 shadow-sm">
+                  <button onClick={handleSave} className="w-full bg-[#111f42] text-white py-2.5 rounded-xl text-sm font-bold uppercase hover:bg-[#111f42]/90 transition-all flex items-center justify-center gap-2 shadow-sm">
                     <Save size={16} /> Save Changes
                   </button>
                   <button onClick={onClose} className="w-full mt-3 text-gray-500 text-xs font-bold uppercase hover:text-red-600 transition-colors">Cancel</button>
@@ -104,13 +104,13 @@ const EditUserModal: React.FC<Props> = ({
               <div className="w-2/3 p-6 flex flex-col overflow-hidden">
                 {/* Stepper Header */}
                 <div className="flex items-center gap-3 mb-6 bg-white p-3 rounded-xl border border-gray-200 shadow-sm modal-drag-handle cursor-move select-none">
-                  <div className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${modalStep === 1 ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-500'}`}>
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${modalStep === 1 ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-500'}`}>1</div>
+                  <div className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${modalStep === 1 ? 'bg-[#F9F7F6] text-[#E3624A] shadow-sm' : 'text-gray-500'}`}>
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${modalStep === 1 ? 'bg-[#111f42] text-white' : 'bg-gray-100 text-gray-500'}`}>1</div>
                     <span className="text-xs font-bold uppercase tracking-wider">Confidentiality</span>
                   </div>
                   <div className="h-px w-8 bg-gray-200"></div>
-                  <div className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${modalStep === 2 ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-gray-500'}`}>
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${modalStep === 2 ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-500'}`}>2</div>
+                  <div className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all ${modalStep === 2 ? 'bg-[#F9F7F6] text-[#E3624A] shadow-sm' : 'text-gray-500'}`}>
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${modalStep === 2 ? 'bg-[#111f42] text-white' : 'bg-gray-100 text-gray-500'}`}>2</div>
                     <span className="text-xs font-bold uppercase tracking-wider">Operational Rights</span>
                   </div>
                 </div>
@@ -148,7 +148,7 @@ const EditUserModal: React.FC<Props> = ({
                       <div key={module.id} className={`bg-white rounded-xl border p-3 hover:shadow-sm transition-shadow ${module.isConfidential ? 'border-red-100' : 'border-gray-200'}`}>
                         <div className="flex items-center justify-between">
                           <div className={`flex items-center gap-3 ${hasSub ? 'cursor-pointer select-none' : ''}`} onClick={() => hasSub && toggleExpand(module.id)}>
-                            <div className={`p-2 rounded-lg ${module.isConfidential ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'}`}>
+                            <div className={`p-2 rounded-lg ${module.isConfidential ? 'bg-red-50 text-red-600' : 'bg-[#F9F7F6] text-[#111f42]'}`}>
                               <module.icon size={18} />
                             </div>
                             <span className="font-bold text-gray-900 text-sm uppercase tracking-wide flex items-center gap-2">
@@ -190,7 +190,7 @@ const EditUserModal: React.FC<Props> = ({
                                 return (
                                   <div key={sub.id} className="flex items-center justify-between py-2 pl-4 pr-2 hover:bg-gray-50 rounded-lg">
                                     <div className="flex items-center gap-2">
-                                      <div className={`w-1.5 h-1.5 rounded-full ${sub.isConfidential || module.isConfidential ? 'bg-red-500' : 'bg-blue-500'}`}></div>
+                                      <div className={`w-1.5 h-1.5 rounded-full ${sub.isConfidential || module.isConfidential ? 'bg-red-500' : 'bg-[#111f42]'}`}></div>
                                       <span className="text-xs font-medium text-gray-700 flex items-center gap-1.5">
                                         {sub.name}
                                         {(sub.isConfidential || module.isConfidential) && <Lock size={10} className="text-red-500" />}
@@ -245,7 +245,7 @@ const EditUserModal: React.FC<Props> = ({
                   {modalStep === 1 ? (
                     <button 
                       onClick={() => setModalStep(2)}
-                      className="px-8 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold uppercase shadow-sm hover:bg-blue-700 transition-all flex items-center gap-2"
+                      className="px-8 py-2 bg-[#111f42] text-white rounded-xl text-xs font-bold uppercase shadow-sm hover:bg-[#111f42]/90 transition-all flex items-center gap-2"
                     >
                       Next: Operational Rights
                     </button>

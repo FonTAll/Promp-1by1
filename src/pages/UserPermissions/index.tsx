@@ -36,7 +36,7 @@ const UserPermissions: React.FC = () => {
       if (data && data.length > 0) {
         setUsers(data.map(u => ({
           ...u,
-          id: Number(u.id || u.userId)
+          id: Number(u.id || (u as any).userId)
         })));
       } else {
         setUsers([
@@ -183,7 +183,7 @@ const UserPermissions: React.FC = () => {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+            <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-[#111f42] text-white shadow-lg shadow-[#111f42]/20">
               <Shield size={24} />
             </div>
             <div>
@@ -213,19 +213,19 @@ const UserPermissions: React.FC = () => {
               <div className="bg-white p-1 rounded-xl border border-gray-200 shadow-sm flex gap-1">
                 <button 
                   onClick={() => setViewMode('list')}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${viewMode === 'list' ? 'bg-blue-50 text-blue-700' : 'text-gray-500 hover:bg-gray-50'}`}
+                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${viewMode === 'list' ? 'bg-[#F9F7F6] text-[#E3624A]' : 'text-gray-500 hover:bg-gray-50'}`}
                 >
                   <Users size={14} /> User List
                 </button>
                 <button 
                   onClick={() => setViewMode('matrix')}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${viewMode === 'matrix' ? 'bg-blue-50 text-blue-700' : 'text-gray-500 hover:bg-gray-50'}`}
+                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 ${viewMode === 'matrix' ? 'bg-[#F9F7F6] text-[#E3624A]' : 'text-gray-500 hover:bg-gray-50'}`}
                 >
                   <LayoutDashboard size={14} /> Summary Matrix
                 </button>
                 <button 
                   onClick={handleNewUser}
-                  className="px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 bg-blue-600 text-white shadow-sm hover:bg-blue-700 ml-2"
+                  className="px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 bg-[#111f42] text-white shadow-sm hover:bg-[#111f42]/90 ml-2"
                 >
                   <Plus size={14} /> Add User
                 </button>
