@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../services/api';
-import { Lock, User as UserIcon, Loader2, Package, ArrowRight, Phone, Mail } from 'lucide-react';
+import { Lock, User as UserIcon, Loader2, Package, ArrowRight, Phone, Mail, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Login() {
   const [employeeId, setEmployeeId] = useState('');
   const [idCard, setIdCard] = useState('');
+  const [showIdCard, setShowIdCard] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
@@ -196,13 +197,20 @@ export default function Login() {
                   <input
                     id="idCard"
                     name="idCard"
-                    type="password"
+                    type={showIdCard ? "text" : "password"}
                     required
-                    className="block w-full rounded-lg border-0 py-3 pl-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#111f42] sm:text-sm sm:leading-6 transition-all"
+                    className="block w-full rounded-lg border-0 py-3 pl-10 pr-10 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#111f42] sm:text-sm sm:leading-6 transition-all"
                     placeholder="13 digits or demo"
                     value={idCard}
                     onChange={(e) => setIdCard(e.target.value)}
                   />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 focus:outline-none"
+                    onClick={() => setShowIdCard(!showIdCard)}
+                  >
+                    {showIdCard ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
             </div>
@@ -237,7 +245,6 @@ export default function Login() {
             <div className="mt-8 rounded-lg bg-gray-50 p-4 text-center text-sm text-gray-600 border border-gray-100">
               <p className="font-medium text-gray-900 mb-1">Demo Credentials</p>
               <p>User: <span className="font-mono font-medium text-[#111f42]">demo</span> / Pass: <span className="font-mono font-medium text-[#111f42]">demo</span></p>
-              <p className="mt-1">Admin: <span className="font-mono font-medium text-[#111f42]">U001</span> / Pass: <span className="font-mono font-medium text-[#111f42]">1234567890123</span></p>
             </div>
           </form>
         </motion.div>
