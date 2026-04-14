@@ -3,8 +3,34 @@ import { ApiResponse } from '../types';
 
 const SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL || '';
 
+// Cache utility for static data
+export const cache = {
+  get: (key: string) => {
+    const item = localStorage.getItem(`wms_cache_${key}`);
+    if (!item) return null;
+    const parsed = JSON.parse(item);
+    if (Date.now() > parsed.expiry) {
+      localStorage.removeItem(`wms_cache_${key}`);
+      return null;
+    }
+    return parsed.data;
+  },
+  set: (key: string, data: any, ttlMinutes: number = 60) => {
+    const expiry = Date.now() + ttlMinutes * 60 * 1000;
+    localStorage.setItem(`wms_cache_${key}`, JSON.stringify({ data, expiry }));
+  },
+  clear: (key?: string) => {
+    if (key) localStorage.removeItem(`wms_cache_${key}`);
+    else {
+      Object.keys(localStorage)
+        .filter(k => k.startsWith('wms_cache_'))
+        .forEach(k => localStorage.removeItem(k));
+    }
+  }
+};
+
 export const api = {
-  post: async <T = any>(action: string, sheet?: string, data?: any): Promise<ApiResponse<T>> => {
+  post: async <T = any>(action: string, sheet?: string, data?: any, params?: { limit?: number, offset?: number }): Promise<ApiResponse<T>> => {
     if (!SCRIPT_URL) {
       console.warn('VITE_APPS_SCRIPT_URL is not set. Using mock response.');
       return mockResponse(action, data);
@@ -16,7 +42,7 @@ export const api = {
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
-        body: JSON.stringify({ action, sheet, data }),
+        body: JSON.stringify({ action, sheet, data, ...params }),
       });
       return await response.json();
     } catch (error) {

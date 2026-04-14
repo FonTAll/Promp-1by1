@@ -28,7 +28,15 @@ All reusable logic and UI patterns must be moved to `src/components/shared/`.
 - Standardized header format (Logo, Company Name, Document Title).
 - Consistent layout and styling for all printable reports.
 
-## 3. UI/UX Standards
-- **Security:** Sensitive fields (like ID Card numbers) must include a visibility toggle (eye icon).
-- **Feedback:** Use `sweetalert2` for confirmations and error reporting.
-- **Animations:** Use `motion` (framer-motion) for smooth transitions and interactions.
+## 3. Infrastructure & Deployment
+- **Source Control:** All code must be maintained in **GitHub**.
+- **Deployment:** **Vercel** is the primary deployment platform.
+- **Database:** **Google Sheets** acts as the central database via Google Apps Script (GAS).
+- **Communication:** Use **JSON** format for all Frontend-Backend communication as defined in the API service.
+
+## 5. Performance & Concurrency (Real-world Usage)
+- **LockService (GAS):** Always use `LockService` in Google Apps Script to prevent data corruption when multiple users write simultaneously.
+- **Data Pagination:** For large datasets, implement server-side filtering or limit the initial data load to avoid browser lag.
+- **Optimistic UI:** Show immediate feedback (loading states/skeletons) to the user while waiting for Google Sheets to respond (which typically takes 1-2 seconds).
+- **Batch Operations:** When writing multiple rows, send them in a single `write` request instead of multiple individual calls.
+- **Caching:** Use `localStorage` or state management to cache static data (like User Lists or Category Lists) to reduce redundant API calls.

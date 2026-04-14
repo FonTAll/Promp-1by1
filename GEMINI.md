@@ -3,8 +3,15 @@
 ## 1. Component First & Proactive Extraction Policy
 - **ALWAYS** check `src/components/shared/` before creating a new UI element.
 - **PROACTIVE EXTRACTION:** If you find yourself writing a UI pattern or logic that is likely to be reused (e.g., a specific status badge, a custom filter bar, or a specialized data formatter), you **MUST** extract it to `src/components/shared/` immediately, even if not explicitly asked.
-- If a shared component exists (e.g., `KpiCard`, `DraggableModal`, `CsvUpload`), you **MUST** use it instead of writing custom code.
-- If you need a new reusable pattern, create it in `src/components/shared/` first, then use it in the page.
+- **MANDATORY SHARED COMPONENTS:**
+  - **Tables:** Use `DataTable` for all lists (includes built-in Sort, Filter, and Date search).
+  - **Pagination:** Use `Pagination` for large datasets.
+  - **Scanning:** Use `Scanner` for QR/Barcode reading.
+  - **Codes:** Use `CodeGenerator` for creating QR/Barcodes.
+  - **Files:** Use `FileAttachment` for image/document uploads.
+  - **Modals:** Use `DraggableModal`.
+  - **KPIs:** Use `KpiCard`.
+- If a shared component exists, you **MUST** use it instead of writing custom code.
 
 ## 2. Self-Audit Step
 - Before completing any task, perform a "Shared Component Audit":
@@ -22,6 +29,9 @@
 - **Forms:** Use `sweetalert2` for success/error notifications.
 - **Security:** Always include eye-toggle for sensitive fields.
 
-## 4. Performance
-- Use `React.memo` for expensive components in lists.
-- Use `motion` for all transitions to ensure a premium feel.
+## 4. Performance & Optimization
+- **Caching:** Use the `cache` utility from `api.ts` for static data (e.g., employee lists, categories).
+  - Example: `const data = cache.get('users') || await api.post('read', 'Users');`
+- **Batch Operations:** Always send data as an array to `api.post('write', ...)` to trigger batch processing.
+- **Auto-Cleanup:** Ensure the Google Apps Script includes the `deleteRows` logic to keep sheets lean.
+- **Motion:** Use `motion` for all transitions to ensure a premium feel.
