@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { ArrowUpDown, Search, Filter, Calendar, ChevronDown, ChevronUp } from 'lucide-react';
 import { clsx } from 'clsx';
+import { Pagination } from './Pagination';
 
 interface Column {
   key: string;
@@ -15,12 +16,15 @@ interface DataTableProps {
   data: any[];
   onRowClick?: (row: any) => void;
   className?: string;
+  hasPagination?: boolean;
 }
 
-export function DataTable({ columns, data, onRowClick, className }: DataTableProps) {
+export function DataTable({ columns, data, onRowClick, className, hasPagination = true }: DataTableProps) {
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
   const [filters, setFilters] = useState<{ [key: string]: string }>({});
   const [dateFilter, setDateFilter] = useState({ month: '', year: '' });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const handleSort = (key: string) => {
     let direction: 'asc' | 'desc' = 'asc';
@@ -35,7 +39,8 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
       // General Column Filters
       const matchesFilters = Object.entries(filters).every(([key, value]) => {
         if (!value) return true;
-        return String(row[key]).toLowerCase().includes(value.toLowerCase());
+        const rowValue = row[key];
+        return String(rowValue ?? '').toLowerCase().includes(String(value).toLowerCase());
       });
 
       // Date Filters (Month/Year)
@@ -59,8 +64,19 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
     });
   }, [data, filters, dateFilter, sortConfig]);
 
+  const paginatedData = useMemo(() => {
+    if (!hasPagination) return filteredData;
+    const start = (currentPage - 1) * pageSize;
+    return filteredData.slice(start, start + pageSize);
+  }, [filteredData, currentPage, pageSize, hasPagination]);
+
+  // Reset to first page when filters change
+  React.useEffect(() => {
+    setCurrentPage(1);
+  }, [filters, dateFilter, sortConfig]);
+
   return (
-    <div className={clsx("sys-table-card w-full", className)}>
+    <div className={clsx("sys-table-card w-full flex flex-col", className)}>
       {/* Date Filter Bar */}
       <div className="p-4 bg-white border-b border-slate-200 flex flex-wrap items-center gap-4">
         <div className="flex items-center gap-2">
@@ -140,8 +156,8 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {filteredData.length > 0 ? (
-              filteredData.map((row, i) => (
+            {paginatedData.length > 0 ? (
+              paginatedData.map((row, i) => (
                 <tr 
                   key={i} 
                   onClick={() => onRowClick?.(row)}
@@ -170,6 +186,17 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
           </tbody>
         </table>
       </div>
+      
+      {hasPagination && filteredData.length > 0 && (
+        <Pagination 
+          currentPage={currentPage}
+          totalCount={filteredData.length}
+          pageSize={pageSize}
+          onPageChange={setCurrentPage}
+          onPageSizeChange={setPageSize}
+          className="rounded-b-none border-x-0 border-b-0"
+        />
+      )}
     </div>
   );
 }

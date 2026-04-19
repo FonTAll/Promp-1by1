@@ -58,7 +58,14 @@
   .sys-calendar-card { @apply bg-white rounded-none border border-slate-200 shadow-sm overflow-hidden; }
 
 
-  /* ----- 3. BUTTONS & INPUTS (ปุ่มและฟอร์ม) ----- */
+  /* ----- 3. PAGINATION (ระบบแบ่งหน้าตาราง) ----- */
+  .sys-pagination-container { @apply flex flex-col sm:flex-row items-center justify-between px-6 py-4 bg-white border-t border-slate-200 w-full; }
+  .sys-pagination-text { @apply text-[11px] font-black text-primary font-mono uppercase tracking-widest leading-none; }
+  .sys-pagination-select { @apply text-[11px] font-black text-primary font-mono bg-white border border-slate-200 rounded-lg px-2 py-1 outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer hover:bg-slate-50 transition-colors; }
+  .sys-pagination-btn { @apply flex items-center justify-center p-2 rounded-lg border border-slate-200 bg-white text-primary hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all; }
+
+
+  /* ----- 4. BUTTONS & INPUTS (ปุ่มและฟอร์ม) ----- */
   .sys-btn-primary { @apply flex items-center justify-center gap-2 bg-primary text-white py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:brightness-110 transition-all disabled:opacity-50; }
   .sys-btn-secondary { @apply flex items-center justify-center gap-2 bg-slate-100 text-primary py-3 px-4 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition-all disabled:opacity-50; }
   .sys-input { @apply bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs font-medium focus:ring-2 focus:ring-primary outline-none placeholder:text-slate-300; }

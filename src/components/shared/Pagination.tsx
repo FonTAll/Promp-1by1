@@ -7,6 +7,8 @@ interface PaginationProps {
   totalCount: number;
   pageSize: number;
   onPageChange: (page: number) => void;
+  onPageSizeChange?: (size: number) => void;
+  pageSizeOptions?: number[];
   className?: string;
 }
 
@@ -15,73 +17,71 @@ export function Pagination({
   totalCount,
   pageSize,
   onPageChange,
+  onPageSizeChange,
+  pageSizeOptions = [10, 20, 50, 100],
   className
 }: PaginationProps) {
-  const totalPages = Math.ceil(totalCount / pageSize);
-
-  if (totalPages <= 1) return null;
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
 
   return (
-    <div className={clsx("flex items-center justify-between px-4 py-3 bg-white border-t border-slate-100 rounded-b-[24px]", className)}>
-      <div className="flex-1 flex justify-between sm:hidden">
+    <div className={clsx("sys-pagination-container", className)}>
+      
+      {/* Left Side: Show Page Size & Total Pages */}
+      <div className="flex items-center gap-4 w-full sm:w-auto mb-4 sm:mb-0 justify-center sm:justify-start">
+        <div className="flex items-center gap-3">
+          <span className="sys-pagination-text text-slate-400">SHOW:</span>
+          {onPageSizeChange ? (
+            <select
+              value={pageSize}
+              onChange={(e) => {
+                onPageSizeChange(Number(e.target.value));
+                onPageChange(1); // Reset to first page on size change
+              }}
+              className="sys-pagination-select"
+            >
+              {pageSizeOptions.map((size) => (
+                <option key={size} value={size}>{size}</option>
+              ))}
+            </select>
+          ) : (
+            <div className="sys-pagination-select !cursor-default hover:bg-white flex items-center justify-center min-w-[40px]">
+              {pageSize}
+            </div>
+          )}
+        </div>
+        
+        <div className="h-4 w-px bg-slate-200"></div>
+        
+        <span className="sys-pagination-text">
+          TOTAL <span className="text-accent">{totalPages}</span> PAGES
+        </span>
+      </div>
+
+      {/* Right Side: Navigation */}
+      <div className="flex items-center gap-4">
         <button
           onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="relative inline-flex items-center px-4 py-2 border border-slate-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+          disabled={currentPage <= 1}
+          className="sys-pagination-btn"
+          aria-label="Previous Page"
         >
-          Previous
+          <ChevronLeft size={16} strokeWidth={2.5} />
         </button>
+
+        <span className="sys-pagination-text">
+          PAGE <span className="text-accent">{currentPage}</span> OF <span className="text-accent">{totalPages}</span>
+        </span>
+
         <button
           onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-          className="ml-3 relative inline-flex items-center px-4 py-2 border border-slate-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
+          disabled={currentPage >= totalPages}
+          className="sys-pagination-btn"
+          aria-label="Next Page"
         >
-          Next
+          <ChevronRight size={16} strokeWidth={2.5} />
         </button>
       </div>
-      <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-        <div>
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-            Showing <span className="text-primary">{(currentPage - 1) * pageSize + 1}</span> to <span className="text-primary">{Math.min(currentPage * pageSize, totalCount)}</span> of <span className="text-primary">{totalCount}</span> results
-          </p>
-        </div>
-        <div>
-          <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-            <button
-              onClick={() => onPageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-slate-200 bg-white text-sm font-medium text-slate-500 hover:bg-slate-50 disabled:opacity-50"
-            >
-              <span className="sr-only">Previous</span>
-              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
-            </button>
-            
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => onPageChange(i + 1)}
-                className={clsx(
-                  "relative inline-flex items-center px-4 py-2 border text-[10px] font-black uppercase tracking-widest",
-                  currentPage === i + 1
-                    ? "z-10 bg-primary border-primary text-white"
-                    : "bg-white border-slate-200 text-slate-500 hover:bg-slate-50"
-                )}
-              >
-                {i + 1}
-              </button>
-            ))}
-
-            <button
-              onClick={() => onPageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-slate-200 bg-white text-sm font-medium text-slate-500 hover:bg-slate-50 disabled:opacity-50"
-            >
-              <span className="sr-only">Next</span>
-              <ChevronRight className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </nav>
-        </div>
-      </div>
+      
     </div>
   );
 }
