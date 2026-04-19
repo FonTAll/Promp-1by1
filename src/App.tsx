@@ -14,6 +14,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import PlaceholderPage from './pages/PlaceholderPage';
 import UserPermissions from './pages/UserPermissions';
+import AccessLogs from './pages/AccessLogs';
 
 export default function App() {
   return (
@@ -61,6 +62,11 @@ export default function App() {
             <Route path="/permissions" element={
               <ProtectedRoute isConfidential>
                 <UserPermissions />
+              </ProtectedRoute>
+            } />
+            <Route path="/access-logs" element={
+              <ProtectedRoute isConfidential>
+                <AccessLogs />
               </ProtectedRoute>
             } />
             

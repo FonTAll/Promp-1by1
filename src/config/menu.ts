@@ -5,7 +5,8 @@ import {
   Boxes,
   RotateCcw,
   Settings,
-  Users
+  Users,
+  History
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -25,4 +26,5 @@ export const MENU_ITEMS: MenuItem[] = [
   { id: 'returns', path: '/returns', name: 'Returns & QC', icon: RotateCcw, isConfidential: false },
   { id: 'settings', path: '/settings', name: 'WMS Settings', icon: Settings, isConfidential: true },
   { id: 'permissions', path: '/permissions', name: 'User Permissions', icon: Users, isConfidential: true },
+  { id: 'access_logs', path: '/access-logs', name: 'Access Logs', icon: History, isConfidential: true },
 ];

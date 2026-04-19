@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User } from '../types';
+import { api } from '../services/api';
 
 interface AuthContextType {
   user: User | null;
@@ -24,8 +25,33 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user]);
 
-  const login = (userData: User) => setUser(userData);
-  const logout = () => setUser(null);
+  const login = (userData: User) => {
+    setUser(userData);
+    // Log login activity
+    api.post('write', 'AccessLogs', [{
+      timestamp: new Date().toISOString(),
+      action: 'LOGIN',
+      employeeId: userData.employeeId,
+      name: userData.name,
+      role: userData.role,
+      userAgent: navigator.userAgent
+    }]).catch(console.error);
+  };
+
+  const logout = () => {
+    if (user) {
+      // Log logout activity
+      api.post('write', 'AccessLogs', [{
+        timestamp: new Date().toISOString(),
+        action: 'LOGOUT',
+        employeeId: user.employeeId,
+        name: user.name,
+        role: user.role,
+        userAgent: navigator.userAgent
+      }]).catch(console.error);
+    }
+    setUser(null);
+  };
 
   return (
     <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
