@@ -27,7 +27,7 @@ export function KpiCard({
 }: KpiCardProps) {
   return (
     <div className={clsx(
-      "bg-white p-6 rounded-[24px] shadow-sm border border-slate-100 flex flex-col justify-between min-h-[140px] hover:shadow-md transition-shadow relative overflow-hidden",
+      "sys-card-base flex flex-col justify-between min-h-[140px] hover:shadow-md transition-shadow relative overflow-hidden",
       className
     )}>
       <div 
@@ -38,7 +38,7 @@ export function KpiCard({
       </div>
       
       <div className="flex justify-between items-start relative z-10">
-        <h3 className="text-[10px] font-black text-[#111f42] uppercase tracking-widest leading-tight w-24">
+        <h3 className="sys-kpi-label w-24">
           {label}
         </h3>
         <div className={clsx("p-2.5 rounded-[14px]", bg)} style={{ color }}>
@@ -48,7 +48,7 @@ export function KpiCard({
       
       <div className="relative z-10 mt-4">
         <div className="flex items-baseline gap-2">
-          <div className="text-4xl font-black text-[#111f42] font-mono tracking-tighter leading-none">
+          <div className="sys-kpi-value">
             {value}
           </div>
           {trend && (
@@ -58,7 +58,7 @@ export function KpiCard({
           )}
         </div>
         {subLabel && (
-          <p className="text-[9px] font-black text-slate-300 uppercase tracking-widest mt-2">
+          <p className="sys-stack-sub mt-2">
             {subLabel}
           </p>
         )}

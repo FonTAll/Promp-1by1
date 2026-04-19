@@ -42,7 +42,7 @@ export function Pagination({
       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
         <div>
           <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-            Showing <span className="text-[#111f42]">{(currentPage - 1) * pageSize + 1}</span> to <span className="text-[#111f42]">{Math.min(currentPage * pageSize, totalCount)}</span> of <span className="text-[#111f42]">{totalCount}</span> results
+            Showing <span className="text-primary">{(currentPage - 1) * pageSize + 1}</span> to <span className="text-primary">{Math.min(currentPage * pageSize, totalCount)}</span> of <span className="text-primary">{totalCount}</span> results
           </p>
         </div>
         <div>
@@ -63,7 +63,7 @@ export function Pagination({
                 className={clsx(
                   "relative inline-flex items-center px-4 py-2 border text-[10px] font-black uppercase tracking-widest",
                   currentPage === i + 1
-                    ? "z-10 bg-[#111f42] border-[#111f42] text-white"
+                    ? "z-10 bg-primary border-primary text-white"
                     : "bg-white border-slate-200 text-slate-500 hover:bg-slate-50"
                 )}
               >

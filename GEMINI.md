@@ -1,6 +1,7 @@
 # AI Coding Instructions for WMS Master
 
-## 1. Component First & Proactive Extraction Policy
+## 1. Design System & Component Policy
+- **Global CSS Utility:** ALWAYS use the `.sys-*` classes defined in `src/index.css` for typography, layout, and common UI (e.g., use `className="sys-title-main"` instead of raw Tailwind classes like `text-3xl font-black`). This ensures a centralized design system.
 - **ALWAYS** check `src/components/shared/` before creating a new UI element.
 - **PROACTIVE EXTRACTION:** If you find yourself writing a UI pattern or logic that is likely to be reused (e.g., a specific status badge, a custom filter bar, or a specialized data formatter), you **MUST** extract it to `src/components/shared/` immediately, even if not explicitly asked.
 - **MANDATORY SHARED COMPONENTS:**

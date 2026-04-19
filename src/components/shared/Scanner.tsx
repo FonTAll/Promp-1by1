@@ -40,9 +40,9 @@ export function Scanner({ onScan, onClose, title = "Scan QR / Barcode" }: Scanne
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
       <div className="bg-white rounded-[32px] overflow-hidden w-full max-w-md shadow-2xl">
-        <div className="bg-[#111f42] p-6 flex items-center justify-between text-white">
+        <div className="bg-primary p-6 flex items-center justify-between text-white">
           <div className="flex items-center gap-3">
-            <Camera size={20} className="text-[#E3624A]" />
+            <Camera size={20} className="text-accent" />
             <h3 className="text-sm font-black uppercase tracking-widest">{title}</h3>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">

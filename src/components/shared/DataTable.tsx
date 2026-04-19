@@ -60,17 +60,17 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
   }, [data, filters, dateFilter, sortConfig]);
 
   return (
-    <div className={clsx("bg-white rounded-[24px] border border-slate-100 overflow-hidden shadow-sm", className)}>
+    <div className={clsx("sys-table-card w-full", className)}>
       {/* Date Filter Bar */}
-      <div className="p-4 bg-slate-50 border-b border-slate-100 flex flex-wrap items-center gap-4">
+      <div className="p-4 bg-white border-b border-slate-200 flex flex-wrap items-center gap-4">
         <div className="flex items-center gap-2">
           <Calendar size={16} className="text-slate-400" />
-          <span className="text-[10px] font-black text-[#111f42] uppercase tracking-widest">Filter by Date:</span>
+          <span className="text-[10px] font-black text-primary uppercase tracking-widest">Filter by Date:</span>
         </div>
         <select 
           value={dateFilter.month}
           onChange={(e) => setDateFilter(prev => ({ ...prev, month: e.target.value }))}
-          className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-[#111f42] outline-none"
+          className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-primary outline-none"
         >
           <option value="">All Months</option>
           {Array.from({ length: 12 }, (_, i) => (
@@ -82,7 +82,7 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
         <select 
           value={dateFilter.year}
           onChange={(e) => setDateFilter(prev => ({ ...prev, year: e.target.value }))}
-          className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-[#111f42] outline-none"
+          className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-primary outline-none"
         >
           <option value="">All Years</option>
           {[2024, 2025, 2026].map(y => (
@@ -92,7 +92,7 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
         {(dateFilter.month || dateFilter.year) && (
           <button 
             onClick={() => setDateFilter({ month: '', year: '' })}
-            className="text-[9px] font-black text-[#E3624A] uppercase tracking-widest hover:underline"
+            className="text-[9px] font-black text-accent uppercase tracking-widest hover:underline"
           >
             Clear Date
           </button>
@@ -101,36 +101,36 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
 
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="bg-slate-50/50">
+          <thead className="sys-table-header">
+            <tr>
               {columns.map((col) => (
-                <th key={col.key} className="px-6 py-4 border-b border-slate-100">
+                <th key={col.key} className="px-6 py-4 border-b border-primary">
                   <div className="flex flex-col gap-2">
                     <div 
                       className={clsx(
-                        "flex items-center gap-2 text-[10px] font-black text-[#111f42] uppercase tracking-widest",
-                        col.sortable && "cursor-pointer hover:text-[#E3624A] transition-colors"
+                        "flex items-center gap-2 sys-table-th",
+                        col.sortable && "cursor-pointer hover:text-white/70 transition-colors"
                       )}
                       onClick={() => col.sortable && handleSort(col.key)}
                     >
                       {col.label}
                       {col.sortable && (
-                        <span className="text-slate-300">
+                        <span className="text-white/50">
                           {sortConfig?.key === col.key ? (
-                            sortConfig.direction === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />
+                            sortConfig.direction === 'asc' ? <ChevronUp size={14} className="text-white" /> : <ChevronDown size={14} className="text-white" />
                           ) : <ArrowUpDown size={14} />}
                         </span>
                       )}
                     </div>
                     {col.filterable && (
                       <div className="relative">
-                        <Search size={10} className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-300" />
+                        <Search size={10} className="absolute left-2 top-1/2 -translate-y-1/2 text-white/50" />
                         <input 
                           type="text"
                           placeholder="Filter..."
                           value={filters[col.key] || ''}
                           onChange={(e) => setFilters(prev => ({ ...prev, [col.key]: e.target.value }))}
-                          className="w-full bg-white border border-slate-200 rounded-md pl-6 pr-2 py-1 text-[9px] font-medium placeholder:text-slate-300 focus:ring-1 focus:ring-[#111f42] outline-none"
+                          className="w-full bg-white/10 border border-white/20 rounded-md pl-6 pr-2 py-1.5 text-[9px] font-bold text-white placeholder:text-white/40 focus:ring-1 focus:ring-white outline-none transition-all focus:bg-white/20"
                         />
                       </div>
                     )}
@@ -139,7 +139,7 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-50">
+          <tbody className="divide-y divide-slate-100">
             {filteredData.length > 0 ? (
               filteredData.map((row, i) => (
                 <tr 
@@ -151,7 +151,7 @@ export function DataTable({ columns, data, onRowClick, className }: DataTablePro
                   )}
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className="px-6 py-4 text-xs font-medium text-slate-600">
+                    <td key={col.key} className="px-6 py-4 sys-table-td">
                       {col.render ? col.render(row[col.key], row) : row[col.key]}
                     </td>
                   ))}

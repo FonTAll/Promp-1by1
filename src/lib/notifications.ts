@@ -13,8 +13,8 @@ export const notify = {
       showConfirmButton: false,
       timerProgressBar: true,
       customClass: {
-        popup: 'rounded-[24px] border-none shadow-xl font-sans',
-        title: 'text-[#111f42] font-black uppercase tracking-widest text-lg',
+        popup: 'rounded-[24px] border-none shadow-xl font-sans text-slate-800',
+        title: 'text-primary font-black uppercase tracking-widest text-lg',
         htmlContainer: 'text-slate-500 text-sm font-medium'
       }
     });
@@ -25,12 +25,11 @@ export const notify = {
       title: title,
       text: text,
       confirmButtonText: 'Understand',
-      confirmButtonColor: '#111f42',
       customClass: {
-        popup: 'rounded-[24px] border-none shadow-xl font-sans',
-        title: 'text-[#ef4444] font-black uppercase tracking-widest text-lg',
+        popup: 'rounded-[24px] border-none shadow-xl font-sans text-slate-800',
+        title: 'text-red-500 font-black uppercase tracking-widest text-lg',
         htmlContainer: 'text-slate-500 text-sm font-medium',
-        confirmButton: 'rounded-xl px-8 py-3 text-xs font-black uppercase tracking-widest'
+        confirmButton: 'rounded-xl px-8 py-3 text-xs font-black uppercase tracking-widest bg-primary text-white hover:brightness-110'
       }
     });
   },
@@ -40,16 +39,14 @@ export const notify = {
       text: text,
       icon: 'question',
       showCancelButton: true,
-      confirmButtonColor: '#111f42',
-      cancelButtonColor: '#f1f5f9',
       confirmButtonText: 'Yes, proceed',
       cancelButtonText: 'Cancel',
       customClass: {
-        popup: 'rounded-[24px] border-none shadow-xl font-sans',
-        title: 'text-[#111f42] font-black uppercase tracking-widest text-lg',
+        popup: 'rounded-[24px] border-none shadow-xl font-sans text-slate-800',
+        title: 'text-primary font-black uppercase tracking-widest text-lg',
         htmlContainer: 'text-slate-500 text-sm font-medium',
-        confirmButton: 'rounded-xl px-8 py-3 text-xs font-black uppercase tracking-widest',
-        cancelButton: 'rounded-xl px-8 py-3 text-xs font-black uppercase tracking-widest text-slate-500'
+        confirmButton: 'rounded-xl px-8 py-3 text-xs font-black uppercase tracking-widest bg-primary text-white hover:brightness-110',
+        cancelButton: 'rounded-xl px-8 py-3 text-xs font-black uppercase tracking-widest bg-slate-100 text-primary hover:bg-slate-200'
       }
     });
   },
@@ -62,7 +59,7 @@ export const notify = {
       },
       customClass: {
         popup: 'rounded-[24px] border-none shadow-xl font-sans',
-        title: 'text-[#111f42] font-black uppercase tracking-widest text-lg',
+        title: 'text-primary font-black uppercase tracking-widest text-lg',
       }
     });
   },

@@ -51,13 +51,13 @@ export function CodeGenerator({ value, type, label, size = 128 }: CodeGeneratorP
       </div>
       
       <div className="text-center">
-        <p className="text-[10px] font-black text-[#111f42] uppercase tracking-widest">{value}</p>
+        <p className="text-[10px] font-black text-primary uppercase tracking-widest">{value}</p>
         {label && <p className="text-[9px] text-slate-400 uppercase tracking-widest mt-0.5">{label}</p>}
       </div>
 
       <button 
         onClick={downloadCode}
-        className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 text-[9px] font-black text-[#E3624A] uppercase tracking-widest"
+        className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 text-[9px] font-black text-accent uppercase tracking-widest"
       >
         <Download size={12} />
         Download PNG

@@ -54,13 +54,13 @@ export function FileAttachment({
       {!selectedFile ? (
         <div 
           onClick={() => fileInputRef.current?.click()}
-          className="flex items-center gap-3 px-4 py-3 bg-slate-50 border border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-[#E3624A] hover:bg-orange-50/30 transition-all group"
+          className="flex items-center gap-3 px-4 py-3 bg-slate-50 border border-dashed border-slate-200 rounded-2xl cursor-pointer hover:border-accent hover:bg-orange-50/30 transition-all group"
         >
-          <div className="p-2 bg-white rounded-lg text-slate-400 group-hover:text-[#E3624A] transition-colors shadow-sm">
+          <div className="p-2 bg-white rounded-lg text-slate-400 group-hover:text-accent transition-colors shadow-sm">
             <Paperclip size={18} />
           </div>
           <div className="flex-1">
-            <p className="text-[10px] font-black text-[#111f42] uppercase tracking-widest">{label}</p>
+            <p className="text-[10px] font-black text-primary uppercase tracking-widest">{label}</p>
             <p className="text-[9px] text-slate-400 uppercase tracking-widest mt-0.5">Max {maxSizeMB}MB</p>
           </div>
           <input 
@@ -82,7 +82,7 @@ export function FileAttachment({
           )}
           
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-black text-[#111f42] uppercase tracking-wider truncate">{selectedFile.name}</p>
+            <p className="text-[10px] font-black text-primary uppercase tracking-wider truncate">{selectedFile.name}</p>
             <p className="text-[9px] text-slate-400 uppercase tracking-widest">{(selectedFile.size / 1024).toFixed(2)} KB</p>
           </div>
 
