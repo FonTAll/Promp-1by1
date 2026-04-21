@@ -30,16 +30,16 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-[#F9F7F6] border-b border-slate-200 px-6 py-4 flex justify-between items-center z-10">
+    <header className="bg-transparent border-b border-slate-200/50 px-6 py-3 flex justify-between items-center z-10">
       {/* Left side: Workspace Title */}
       <div className="flex items-center gap-3">
-        <div className="text-[#ab8a3b]">
-          <Box size={24} strokeWidth={2} />
+        <div className="text-[#ab8a3b] p-1 border border-[#ab8a3b]/20 rounded-md">
+          <Box size={22} strokeWidth={2} />
         </div>
-        <div className="flex items-center gap-1.5 text-lg font-black tracking-widest uppercase">
+        <div className="flex items-center gap-1.5 text-base font-black tracking-widest uppercase">
           <span className="text-[#111f42]">WMS</span>
           <span className="text-[#E3624A]">MASTER</span>
-          <span className="text-[#111f42]">WORKSPACE</span>
+          <span className="text-[#111f42]">CORE</span>
         </div>
       </div>
 

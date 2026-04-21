@@ -23,14 +23,14 @@ export default function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           
+          <Route path="/" element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          } />
+
           {/* Protected Routes */}
           <Route element={<Layout />}>
-            <Route path="/" element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            } />
-            
             {/* General Modules (Read-only by default) */}
             <Route path="/inbound" element={
               <ProtectedRoute>

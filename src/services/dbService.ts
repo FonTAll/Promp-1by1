@@ -1,4 +1,12 @@
-import { User } from '../pages/UserPermissions/types';
+export interface User {
+  id?: number | string;
+  name: string;
+  position: string;
+  email: string;
+  avatar: string;
+  permissions?: Record<string, number[]>;
+  isDev?: boolean;
+}
 
 // Mock database service for storing user permissions
 // In a real app, this would connect to a backend API or Firebase

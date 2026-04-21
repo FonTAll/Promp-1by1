@@ -10,13 +10,15 @@ export function AccessHeader({ isLoading, onRefresh }: AccessHeaderProps) {
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       <div>
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-primary rounded-lg text-white">
-            <Shield size={20} />
+        <div className="flex items-center gap-4">
+          <div className="sys-header-icon-box">
+            <Shield className="sys-header-icon" strokeWidth={2.5} />
           </div>
-          <h1 className="sys-title-main">System Access Logs</h1>
+          <div>
+            <h1 className="sys-title-main">System Access Logs</h1>
+            <p className="sys-title-sub">Audit trail of all user logins and logouts across the application.</p>
+          </div>
         </div>
-        <p className="sys-title-sub">Audit trail of all user logins and logouts across the application.</p>
       </div>
       <button 
         onClick={onRefresh}

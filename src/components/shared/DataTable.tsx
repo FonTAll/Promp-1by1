@@ -86,7 +86,7 @@ export function DataTable({ columns, data, onRowClick, className, hasPagination 
         <select 
           value={dateFilter.month}
           onChange={(e) => setDateFilter(prev => ({ ...prev, month: e.target.value }))}
-          className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-primary outline-none"
+          className="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-primary outline-none"
         >
           <option value="">All Months</option>
           {Array.from({ length: 12 }, (_, i) => (
@@ -98,7 +98,7 @@ export function DataTable({ columns, data, onRowClick, className, hasPagination 
         <select 
           value={dateFilter.year}
           onChange={(e) => setDateFilter(prev => ({ ...prev, year: e.target.value }))}
-          className="bg-white border border-slate-200 rounded-lg px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-2 focus:ring-primary outline-none"
+          className="bg-white border border-slate-200 rounded-xl px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider focus:ring-1 focus:ring-primary outline-none"
         >
           <option value="">All Years</option>
           {[2024, 2025, 2026].map(y => (
@@ -146,7 +146,7 @@ export function DataTable({ columns, data, onRowClick, className, hasPagination 
                           placeholder="Filter..."
                           value={filters[col.key] || ''}
                           onChange={(e) => setFilters(prev => ({ ...prev, [col.key]: e.target.value }))}
-                          className="w-full bg-white/10 border border-white/20 rounded-md pl-6 pr-2 py-1.5 text-[9px] font-bold text-white placeholder:text-white/40 focus:ring-1 focus:ring-white outline-none transition-all focus:bg-white/20"
+                          className="w-full bg-white/10 border border-white/20 rounded-xl pl-6 pr-2 py-1.5 text-[9px] font-bold text-white placeholder:text-white/40 focus:ring-1 focus:ring-white outline-none transition-all focus:bg-white/20"
                         />
                       </div>
                     )}
@@ -167,7 +167,7 @@ export function DataTable({ columns, data, onRowClick, className, hasPagination 
                   )}
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className="px-6 py-4 sys-table-td">
+                    <td key={col.key} className="px-6 py-3 sys-table-td">
                       {col.render ? col.render(row[col.key], row) : row[col.key]}
                     </td>
                   ))}

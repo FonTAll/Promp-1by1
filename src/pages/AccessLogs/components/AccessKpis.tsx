@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { KpiCard } from '../../../components/shared/KpiCard';
+import KpiCard from '../../../components/shared/KpiCard';
 import { Key, History, Users } from 'lucide-react';
 import { AccessLog } from '../types';
 

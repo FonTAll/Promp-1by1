@@ -43,15 +43,18 @@ export default function AccessLogs() {
   const columns = getColumns();
 
   return (
-    <div className="sys-page-layout">
+    <div className="w-full flex flex-col space-y-4 pt-2">
       <AccessHeader isLoading={isLoading} onRefresh={() => fetchLogs(true)} />
-      <AccessKpis logs={logs} />
       
-      <div className="w-full mt-2">
-        <DataTable 
-          columns={columns}
-          data={logs}
-        />
+      <div className="sys-main-content">
+        <AccessKpis logs={logs} />
+        
+        <div className="w-full">
+          <DataTable 
+            columns={columns}
+            data={logs}
+          />
+        </div>
       </div>
     </div>
   );

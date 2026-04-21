@@ -15,7 +15,7 @@ export default function Layout() {
         <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header />
-          <main className="flex-1 overflow-y-auto p-4 pt-4 flex flex-col">
+          <main className="flex-1 overflow-y-auto w-full mx-auto px-4 sm:px-6 md:px-8 flex flex-col pt-2">
             <Outlet />
           </main>
         </div>

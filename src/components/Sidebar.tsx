@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { 
@@ -28,34 +28,46 @@ interface SidebarProps {
 export default function Sidebar({ isCollapsed, setIsCollapsed }: SidebarProps) {
   const { user, logout } = useAuth();
 
+  // Auto-collapse on small screens
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setIsCollapsed(true);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+    return () => window.removeEventListener('resize', handleResize);
+  }, [setIsCollapsed]);
+
   return (
     <motion.aside
       initial={false}
       animate={{ width: isCollapsed ? 80 : 280 }}
-      className="relative flex h-screen flex-col bg-[#111f42] shadow-sm z-20"
+      className="relative flex h-screen flex-col bg-[#0f172a] shadow-2xl z-20"
     >
       {/* Toggle Button */}
       <button
         onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-4 top-8 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-[#E3624A] text-white shadow-md hover:bg-[#E3624A]/90 focus:outline-none"
+        className="absolute -right-4 top-8 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-primary text-white shadow-xl hover:bg-primary/90 focus:outline-none transition-transform active:scale-95"
       >
         {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
       </button>
 
       {/* Logo Area */}
-      <div className="flex h-24 items-center justify-center border-b border-white/5">
+      <div className="flex h-24 items-center justify-center border-b border-white/5 bg-[#0a0f1d]">
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E3624A] text-white shadow-lg">
-            <Warehouse size={24} />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-slate-800 text-white shadow-lg border border-white/10">
+            <Warehouse size={24} strokeWidth={2.5} />
           </div>
           {!isCollapsed && (
             <div className="flex flex-col">
               <div className="flex items-center gap-1.5 text-xl font-black tracking-widest">
                 <span className="text-white">WMS</span>
-                <span className="text-[#E3624A]">MASTER</span>
+                <span className="text-accent underline decoration-2 underline-offset-4">MASTER</span>
               </div>
-              <span className="text-[9px] font-black text-slate-400 tracking-[0.2em] uppercase mt-0.5">
-                Warehouse System
+              <span className="text-[9px] font-black text-slate-500 tracking-[0.2em] uppercase mt-1">
+                Warehouse Core
               </span>
             </div>
           )}
