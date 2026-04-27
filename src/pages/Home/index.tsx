@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import UserPermissions from '../UserPermissions';
+import HrCalendar from '../HrCalendar';
+import SystemConfig from '../SystemConfig';
+import { SYSTEM_MODULES } from '../../config/modules';
 import DateTimeBadge from '../../components/shared/DateTimeBadge';
 import KpiCard from '../../components/shared/KpiCard';
 import GlassCard from '../../components/shared/GlassCard';
+import DevPermit from '../DevPermit';
+import { useAuth } from '../../context/AuthContext';
 import {
     LayoutDashboard, Users, Clock, Sparkles, ShieldCheck, 
     GraduationCap, Target, UserPlus, Heart, BarChart3, 
@@ -10,7 +15,7 @@ import {
     UserCheck, Cake, PartyPopper, Send, ClipboardCheck, 
     CheckSquare, FileText, Megaphone, Calendar, Info, 
     ChevronLeft, ChevronRight, ChevronDown, Search, Bell,
-    Phone, Mail
+    Phone, Mail, LogOut
 } from 'lucide-react';
 
 const PALETTE = {
@@ -24,90 +29,6 @@ const PALETTE = {
     sidebar: '#141A26',
     text: '#3F4859', 
 };
-
-const SYSTEM_MODULES = [
-    { id: 'dashboard', label: 'DASHBOARD', icon: LayoutDashboard },
-    {
-        id: 'hrm', label: 'HR MANAGEMENT', icon: Users,
-        subItems: [
-            { id: 'employee_directory', label: 'EMPLOYEE DIRECTORY' },
-            { id: 'payroll', label: 'PAYROLL & COMPENSATION' },
-            { id: 'time_attendance', label: 'TIME & ATTENDANCE' },
-            { id: 'leave_management', label: 'LEAVE MANAGEMENT' },
-            { id: 'benefits', label: 'BENEFITS & WELFARE' },
-            { id: 'disciplinary', label: 'DISCIPLINARY ACTIONS' },
-        ]
-    },
-    {
-        id: 'hrd', label: 'HR DEVELOPMENT', icon: GraduationCap, 
-        subItems: [
-            { id: 'training_plan', label: 'TRAINING PLANNING' },
-            { id: 'skill_matrix', label: 'SKILL MATRIX' },
-            { id: 'performance_hrd', label: 'PERFORMANCE' },
-            { id: 'career_path', label: 'CAREER PATH' },
-            { id: 'succession', label: 'SUCCESSION PLAN' },
-        ]
-    },
-    {
-        id: 'performance_mgmt', label: 'PERFORMANCE MANAGEMENT', icon: Target,
-        subItems: [
-            { id: 'kpi_setting', label: 'KPI / OKR SETTING' },
-            { id: 'self_evaluation', label: 'SELF EVALUATION' },
-            { id: 'manager_review', label: 'MANAGER REVIEW' },
-            { id: 'feedback_360', label: '360 FEEDBACK' },
-            { id: 'appraisal_report', label: 'APPRAISAL SUMMARY' },
-        ]
-    },
-    {
-        id: 'recruitment', label: 'RECRUITMENT', icon: UserPlus,
-        subItems: [
-            { id: 'manpower_request', label: 'MANPOWER REQUEST' },
-            { id: 'job_vacancies', label: 'JOB VACANCIES' },
-            { id: 'recruitment_jd', label: 'JOB DESCRIPTION' },
-            { id: 'candidate_tracking', label: 'CANDIDATE TRACKING' },
-            { id: 'interview_schedule', label: 'INTERVIEW SCHEDULE' },
-            { id: 'onboarding', label: 'ONBOARDING' },
-        ]
-    },
-    {
-        id: 'labor_relations', label: 'LABOR RELATIONS', icon: Heart,
-        subItems: [
-            { id: 'disciplinary_law', label: 'DISCIPLINARY & LABOR LAW' },
-            { id: 'company_regulations', label: 'COMPANY REGULATIONS' },
-            { id: 'investigation_process', label: 'INVESTIGATION & PUNISHMENT' },
-            { id: 'union_grievance', label: 'UNION & GRIEVANCES' },
-            { id: 'employee_engagement', label: 'ENGAGEMENT & RELATIONSHIP' },
-            { id: 'sports_social', label: 'SPORTS & SOCIAL EVENTS' },
-            { id: 'internal_pr', label: 'INTERNAL PR & NEWS' },
-            { id: 'external_activities', label: 'EXTERNAL ACTIVITIES' },
-        ]
-    },
-    {
-        id: 'analytics', label: 'HR ANALYTICS', icon: BarChart3,
-        subItems: [
-            { id: 'workforce_report', label: 'WORKFORCE REPORT' },
-            { id: 'turnover_analysis', label: 'TURNOVER ANALYSIS' },
-            { id: 'budget_tracking', label: 'HR BUDGET TRACKING' },
-        ]
-    },
-    {
-        id: 'master', label: 'DATA MASTER', icon: Database,
-        subItems: [
-            { id: 'org_structure', label: 'ORG STRUCTURE' },
-            { id: 'position_master', label: 'POSITION MASTER' },
-            { id: 'master_jd', label: 'JOB DESCRIPTION' },
-            { id: 'branch_master', label: 'BRANCH MASTER' },
-        ]
-    },
-    { id: 'hr_calendar', label: 'HR CALENDAR', icon: CalendarDays },
-    {
-        id: 'setting', label: 'SETTING', icon: Settings,
-        subItems: [
-            { id: 'user_permission', label: 'USER PERMISSIONS' },
-            { id: 'system_config', label: 'SYSTEM CONFIG' }
-        ]
-    }
-];
 
 const MOCK_DATA = {
     stats: [
@@ -393,19 +314,58 @@ const GenericView = ({ title, icon: IconComponent, desc }: any) => (
 );
 
 export default function Home() {
+    const { user, logout } = useAuth();
     const [activeTab, setActiveTab] = useState('dashboard');
     const [currentTime, setCurrentTime] = useState(new Date());
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({});
     const [visitedTabs, setVisitedTabs] = useState(['dashboard']);
+    const [activeModulesConfig, setActiveModulesConfig] = useState<Record<string, boolean>>({});
     
+    // We'll use the authenticated user instead of hardcoded currentUser
     const currentUser = {
-        name: 'T-DCC Developer',
-        email: 'tallintelligence.dcc@gmail.com',
-        position: 'Lead Developer',
+        name: user?.name || 'T-DCC Developer',
+        email: user?.employeeId || 'tallintelligence.dcc@gmail.com', // just a fallback
+        position: user?.role || 'Lead Developer',
         avatar: 'https://drive.google.com/thumbnail?id=1Z_fRbN9S4aA7OkHb3mlim_t60wIT4huY&sz=w400'
     };
+
+    useEffect(() => {
+        const loadConfig = () => {
+            const stored = localStorage.getItem('DEV_PERMIT_MODULES');
+            if (stored) {
+                setActiveModulesConfig(JSON.parse(stored));
+            } else {
+                const defaults: Record<string, boolean> = {};
+                SYSTEM_MODULES.forEach(m => {
+                    defaults[m.id] = true;
+                    m.subItems?.forEach(s => defaults[s.id] = true);
+                });
+                setActiveModulesConfig(defaults);
+            }
+        };
+        
+        loadConfig();
+        window.addEventListener('sysConfigUpdate', loadConfig);
+        return () => window.removeEventListener('sysConfigUpdate', loadConfig);
+    }, []);
+
+    const isDev = user?.role === 'Developer' || currentUser.position === 'Lead Developer';
+
+    const visibleModules = SYSTEM_MODULES.filter(mod => {
+        // If Dev, they see everything logically allowed
+        return activeModulesConfig[mod.id] !== false;
+    }).map(mod => {
+        if (!mod.subItems) return mod;
+        return {
+            ...mod,
+            subItems: mod.subItems.filter(sub => {
+                if (sub.id === 'dev_permit') return isDev;
+                return activeModulesConfig[sub.id] !== false;
+            })
+        };
+    }).filter(mod => !mod.subItems || mod.subItems.length > 0);
 
     useEffect(() => {
         const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -422,12 +382,15 @@ export default function Home() {
     };
 
     const getTabContent = (tabId: string) => {
-        const module = SYSTEM_MODULES.find(m => m.id === tabId || m.subItems?.some(s => s.id === tabId));
+        const module = visibleModules.find(m => m.id === tabId || m.subItems?.some(s => s.id === tabId));
         let title = tabId.replace(/_/g, ' ').toUpperCase();
         let icon = Users;
 
         if (tabId === 'dashboard') return <DashboardView />;
+        if (tabId === 'hr_calendar' || tabId === 'HR_CALENDAR') return <HrCalendar />;
         if (tabId === 'user_permission' || tabId === 'USER_PERMISSION') return <UserPermissions />;
+        if (tabId === 'system_config' || tabId === 'SYSTEM_CONFIG') return <SystemConfig />;
+        if (tabId === 'dev_permit') return isDev ? <DevPermit /> : <div className="p-8 text-center text-slate-500">Access Denied</div>;
         
         if (module) {
             const subItem = module.subItems?.find(s => s.id === tabId);
@@ -443,7 +406,7 @@ export default function Home() {
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
                 * { font-family: 'JetBrains Mono', 'Noto Sans Thai', sans-serif !important; }
-                .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+                .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
                 .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
                 .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(79, 134, 140, 0.1); border-radius: 20px; }
                 .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #4F868C; }
@@ -503,7 +466,7 @@ export default function Home() {
                 </div>
 
                 <nav className="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar py-4 relative z-10">
-                    {SYSTEM_MODULES.map(module => (
+                    {visibleModules.map(module => (
                         <NavItem 
                             key={module.id} 
                             icon={module.icon} 
@@ -548,7 +511,7 @@ export default function Home() {
                                 </div>
                             </div>
                         )}
-                        {(isSidebarOpen || isMobileMenuOpen) && <Settings size={18} className="ml-auto text-[#9295A6] hover:text-white cursor-pointer transition-colors" />}
+                        {(isSidebarOpen || isMobileMenuOpen) && <LogOut size={18} className="ml-auto text-[#9295A6] hover:text-[#D91604] cursor-pointer transition-colors" onClick={logout} title="Log Out" />}
                     </div>
                 </div>
             </aside>
@@ -593,35 +556,37 @@ export default function Home() {
                     </div>
                 </header>
 
-                <div className="flex-1 px-4 sm:px-6 md:px-8 pt-2 pb-4 custom-scrollbar overflow-y-auto">
-                    {visitedTabs.map(tabId => (
-                        <div key={tabId} style={{ display: activeTab === tabId ? 'block' : 'none' }}>
-                            {getTabContent(tabId)}
-                            <footer className="mt-8 py-3.5 text-center border-t border-[#4F868C]/10 w-full">
-                                <div className="flex flex-col items-center justify-center gap-1">
-                                    <div className="flex items-center gap-2">
-                                        <Sparkles size={11} className="text-[#F2B705]" />
-                                        <span className="text-[11px] font-bold text-[#186B8C] uppercase tracking-[0.15em]">
-                                            HR MASTER • THE FUTURE OF TALENT & INNOVATION • EMPOWERING PEOPLE CULTURE
-                                        </span>
-                                    </div>
-                                    <div className="flex items-center gap-3 text-[10px] text-[#4F868C]">
-                                        <span className="font-light">System by <span className="font-black uppercase text-[#141A26]">T All Intelligence</span></span>
-                                        <span className="opacity-20">|</span>
-                                        <div className="flex items-center gap-1.5">
-                                            <Phone size={10} className="text-[#D91604]" />
-                                            <span className="font-medium">082-5695654</span>
-                                        </div>
-                                        <span className="opacity-20">|</span>
-                                        <div className="flex items-center gap-1.5">
-                                            <Mail size={10} className="text-[#186B8C]" />
-                                            <span className="font-medium">tallintelligence.ho@gmail.com</span>
-                                        </div>
-                                    </div>
+                <div className="flex-1 px-4 sm:px-6 md:px-8 pt-2 pb-4 custom-scrollbar overflow-y-auto flex flex-col">
+                    <div className="flex-1">
+                        {visitedTabs.map(tabId => (
+                            <div key={tabId} style={{ display: activeTab === tabId ? 'block' : 'none' }}>
+                                {getTabContent(tabId)}
+                            </div>
+                        ))}
+                    </div>
+                    <footer className="mt-8 py-3.5 text-center border-t border-[#4F868C]/10 w-full shrink-0">
+                        <div className="flex flex-col items-center justify-center gap-1">
+                            <div className="flex items-center gap-2">
+                                <Sparkles size={11} className="text-[#F2B705]" />
+                                <span className="text-[11px] font-bold text-[#186B8C] uppercase tracking-[0.15em]">
+                                    HR MASTER • THE FUTURE OF TALENT & INNOVATION • EMPOWERING PEOPLE CULTURE
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-3 text-[10px] text-[#4F868C]">
+                                <span className="font-light">System by <span className="font-black uppercase text-[#141A26]">T All Intelligence</span></span>
+                                <span className="opacity-20">|</span>
+                                <div className="flex items-center gap-1.5">
+                                    <Phone size={10} className="text-[#D91604]" />
+                                    <span className="font-medium">082-5695654</span>
                                 </div>
-                            </footer>
+                                <span className="opacity-20">|</span>
+                                <div className="flex items-center gap-1.5">
+                                    <Mail size={10} className="text-[#186B8C]" />
+                                    <span className="font-medium">tallintelligence.ho@gmail.com</span>
+                                </div>
+                            </div>
                         </div>
-                    ))}
+                    </footer>
                 </div>
             </main>
         </div>

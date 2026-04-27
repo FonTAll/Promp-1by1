@@ -10,6 +10,7 @@ import {
   GraduationCap, Target, UserPlus, Heart, BarChart3
 } from 'lucide-react';
 import KpiCard from '../../components/shared/KpiCard';
+import UserGuideButton from '../../components/shared/UserGuideButton';
 
 // --- HR MASTER Palette ---
 const palette = {
@@ -35,90 +36,7 @@ const PERMISSION_LEVELS = [
   { level: 4, label: 'Approver', icon: Award, color: palette.danger, bg: '#FEE2E2' },
 ];
 
-/** * SYSTEM_MODULES: Synchronized automatically with HR MASTER sidebar */
-const SYSTEM_MODULES = [
-    { id: 'dashboard', label: 'DASHBOARD', icon: LayoutDashboard },
-    {
-        id: 'hrm', label: 'HR MANAGEMENT', icon: Users,
-        subItems: [
-            { id: 'employee_directory', label: 'EMPLOYEE DIRECTORY' },
-            { id: 'payroll', label: 'PAYROLL & COMPENSATION' },
-            { id: 'time_attendance', label: 'TIME & ATTENDANCE' },
-            { id: 'leave_management', label: 'LEAVE MANAGEMENT' },
-            { id: 'benefits', label: 'BENEFITS & WELFARE' },
-            { id: 'disciplinary', label: 'DISCIPLINARY ACTIONS' },
-        ]
-    },
-    {
-        id: 'hrd', label: 'HR DEVELOPMENT', icon: GraduationCap, 
-        subItems: [
-            { id: 'training_plan', label: 'TRAINING PLANNING' },
-            { id: 'skill_matrix', label: 'SKILL MATRIX' },
-            { id: 'performance_hrd', label: 'PERFORMANCE' },
-            { id: 'career_path', label: 'CAREER PATH' },
-            { id: 'succession', label: 'SUCCESSION PLAN' },
-        ]
-    },
-    {
-        id: 'performance_mgmt', label: 'PERFORMANCE MANAGEMENT', icon: Target,
-        subItems: [
-            { id: 'kpi_setting', label: 'KPI / OKR SETTING' },
-            { id: 'self_evaluation', label: 'SELF EVALUATION' },
-            { id: 'manager_review', label: 'MANAGER REVIEW' },
-            { id: 'feedback_360', label: '360 FEEDBACK' },
-            { id: 'appraisal_report', label: 'APPRAISAL SUMMARY' },
-        ]
-    },
-    {
-        id: 'recruitment', label: 'RECRUITMENT', icon: UserPlus,
-        subItems: [
-            { id: 'manpower_request', label: 'MANPOWER REQUEST' },
-            { id: 'job_vacancies', label: 'JOB VACANCIES' },
-            { id: 'recruitment_jd', label: 'JOB DESCRIPTION' },
-            { id: 'candidate_tracking', label: 'CANDIDATE TRACKING' },
-            { id: 'interview_schedule', label: 'INTERVIEW SCHEDULE' },
-            { id: 'onboarding', label: 'ONBOARDING' },
-        ]
-    },
-    {
-        id: 'labor_relations', label: 'LABOR RELATIONS', icon: Heart,
-        subItems: [
-            { id: 'disciplinary_law', label: 'DISCIPLINARY & LABOR LAW' },
-            { id: 'company_regulations', label: 'COMPANY REGULATIONS' },
-            { id: 'investigation_process', label: 'INVESTIGATION & PUNISHMENT' },
-            { id: 'union_grievance', label: 'UNION & GRIEVANCES' },
-            { id: 'employee_engagement', label: 'ENGAGEMENT & RELATIONSHIP' },
-            { id: 'sports_social', label: 'SPORTS & SOCIAL EVENTS' },
-            { id: 'internal_pr', label: 'INTERNAL PR & NEWS' },
-            { id: 'external_activities', label: 'EXTERNAL ACTIVITIES' },
-        ]
-    },
-    {
-        id: 'analytics', label: 'HR ANALYTICS', icon: BarChart3,
-        subItems: [
-            { id: 'workforce_report', label: 'WORKFORCE REPORT' },
-            { id: 'turnover_analysis', label: 'TURNOVER ANALYSIS' },
-            { id: 'budget_tracking', label: 'HR BUDGET TRACKING' },
-        ]
-    },
-    {
-        id: 'master', label: 'DATA MASTER', icon: Database,
-        subItems: [
-            { id: 'org_structure', label: 'ORG STRUCTURE' },
-            { id: 'position_master', label: 'POSITION MASTER' },
-            { id: 'master_jd', label: 'JOB DESCRIPTION' },
-            { id: 'branch_master', label: 'BRANCH MASTER' },
-        ]
-    },
-    { id: 'hr_calendar', label: 'HR CALENDAR', icon: CalendarDays },
-    {
-        id: 'setting', label: 'SETTING', icon: Settings,
-        subItems: [
-            { id: 'user_permission', label: 'USER PERMISSIONS' },
-            { id: 'system_config', label: 'SYSTEM CONFIG' }
-        ]
-    }
-];
+import { SYSTEM_MODULES } from '../../config/modules';
 
 export default function UserPermissions() {
   const [activeTab, setActiveTab] = useState('step1'); // 'step1' | 'step2'
@@ -214,7 +132,7 @@ export default function UserPermissions() {
         <style>{`
           @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
           * { font-family: 'JetBrains Mono', 'Noto Sans Thai', sans-serif !important; }
-          .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+          .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
           .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(79, 134, 140, 0.2); border-radius: 10px; }
           .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(79, 134, 140, 0.6); }
           .minimal-th { font-size: 12px !important; text-transform: uppercase; letter-spacing: 0.1em; color: white; padding: 18px 16px; font-weight: 800; background-color: #141A26; border-bottom: 3px solid ${palette.gold}; white-space: nowrap; }
@@ -245,11 +163,16 @@ export default function UserPermissions() {
                 <UserCog size={14} /> Operational
             </button>
           </div>
-          <button onClick={() => setIsGuideOpen(true)} className="p-2.5 bg-white/80 border border-[#141A26]/5 rounded-xl text-[#4F868C] hover:text-[#141A26] transition-all shadow-sm">
-            <HelpCircle size={20} />
-          </button>
         </div>
       </header>
+
+      {/* Guide Toggle Button (Right Edge) */}
+      {!isGuideOpen && (
+          <UserGuideButton 
+              onClick={() => setIsGuideOpen(true)} 
+              className="bg-[#D6E0E1] text-[#4A7F85] hover:bg-[#4A7F85] hover:text-white"
+          />
+      )}
 
       <div className="flex-1 space-y-6 w-full relative pt-2">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-2 duration-500">
@@ -337,7 +260,7 @@ export default function UserPermissions() {
                </div>
             </div>
 
-            <div className="flex-1 overflow-x-auto">
+            <div className="flex-1 overflow-x-auto custom-scrollbar">
                {viewMode === 'list' ? (
                   <table className="w-full text-left whitespace-nowrap">
                      <thead>

@@ -3,6 +3,9 @@ import { ApiResponse } from '../types';
 
 const SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL || '';
 
+// Output setup status for easy debugging
+console.log('App initialization - GAS Backend URL configured:', !!SCRIPT_URL);
+
 // Cache utility for static data
 export const cache = {
   get: (key: string) => {
@@ -58,15 +61,17 @@ const mockResponse = async (action: string, data: any): Promise<ApiResponse> => 
   
   if (action === 'login') {
     if ((data.employeeId === 'demo' && data.idCard === 'demo') || 
-        (data.employeeId === 'U001' && data.idCard === '1234567890123')) {
+        (data.employeeId === 'U001' && data.idCard === '1234567890123') ||
+        (data.employeeId === 'U002' && data.idCard === '1234567890123')) {
       const isDemo = data.employeeId === 'demo';
+      const isDev = data.employeeId === 'U001';
       return {
         status: 'success',
         data: {
-          id: isDemo ? '2' : '1',
+          id: isDemo ? '3' : (isDev ? '1' : '2'),
           employeeId: data.employeeId,
-          name: isDemo ? 'Demo User' : 'Administrator',
-          role: isDemo ? 'Viewer' : 'Admin',
+          name: isDemo ? 'Demo User' : (isDev ? 'Developer' : 'Administrator'),
+          role: isDemo ? 'Viewer' : (isDev ? 'Developer' : 'Administrator'),
           avatar: 'https://drive.google.com/thumbnail?id=1Z_fRbN9S4aA7OkHb3mlim_t60wIT4huY&sz=w400',
           permissions: {
             canCreate: !isDemo,

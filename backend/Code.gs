@@ -36,10 +36,17 @@ function initDatabaseIfNeeded() {
   // 1. ตรวจสอบ/สร้าง Sheet "Users"
   // ปรับปรุงให้ใช้ employeeId และ idCard ตามที่ระบบ React ต้องการ
   var usersHeaders = ['id', 'employeeId', 'idCard', 'name', 'role', 'canCreate', 'canEdit', 'canApprove', 'canVerify'];
-  var defaultAdmin = ['U001', 'admin', '1234567890123', 'Administrator', 'Admin', true, true, true, true];
-  ensureSheetExists('Users', usersHeaders, [defaultAdmin]);
+  var defaultRows = [
+    ['U001', 'U001', '1234567890123', 'Developer', 'Developer', true, true, true, true],
+    ['U002', 'U002', '1234567890123', 'Administrator', 'Admin', true, true, true, true]
+  ];
+  ensureSheetExists('Users', usersHeaders, defaultRows);
 
-  // 2. ตรวจสอบ/สร้าง Sheet "Data" (ตัวอย่างตารางเก็บข้อมูล)
+  // 2. ตรวจสอบ/สร้าง Sheet "SystemConfig"
+  var configHeaders = ['id', 'moduleId', 'isActive', 'updatedAt'];
+  ensureSheetExists('SystemConfig', configHeaders, []);
+
+  // 3. ตรวจสอบ/สร้าง Sheet "Data" (ตัวอย่างตารางเก็บข้อมูล)
   var dataHeaders = ['id', 'createdAt', 'createdBy', 'status', 'detail'];
   ensureSheetExists('Data', dataHeaders, []);
 }
