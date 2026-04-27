@@ -467,31 +467,39 @@ export default function Home() {
 
                 <nav className="flex-1 px-4 space-y-1 overflow-y-auto custom-scrollbar py-4 relative z-10">
                     {visibleModules.map(module => (
-                        <NavItem 
-                            key={module.id} 
-                            icon={module.icon} 
-                            label={module.label} 
-                            active={activeTab === module.id || module.subItems?.some(s => s.id === activeTab)} 
-                            onClick={() => {
-                                if (module.subItems) {
-                                    toggleMenu(module.id);
-                                } else {
-                                    setActiveTab(module.id);
-                                    if (window.innerWidth < 1024) setMobileMenuOpen(false);
-                                }
-                            }} 
-                            isOpen={isSidebarOpen || isMobileMenuOpen}
-                            isExpanded={expandedMenus[module.id]}
-                            onToggleExpand={() => toggleMenu(module.id)}
-                            subItems={module.subItems?.map(sub => ({
-                                label: sub.label,
-                                active: activeTab === sub.id,
-                                onClick: () => {
-                                    setActiveTab(sub.id);
-                                    if (window.innerWidth < 1024) setMobileMenuOpen(false);
-                                }
-                            }))}
-                        />
+                        <React.Fragment key={module.id}>
+                            {module.id === 'hrm' && (isSidebarOpen || isMobileMenuOpen) && (
+                                <div className="mt-6 mb-2 px-3">
+                                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-[#F2B705]">
+                                        OPERATIONAL MODULES
+                                    </h3>
+                                </div>
+                            )}
+                            <NavItem 
+                                icon={module.icon} 
+                                label={module.label} 
+                                active={activeTab === module.id || module.subItems?.some(s => s.id === activeTab)} 
+                                onClick={() => {
+                                    if (module.subItems) {
+                                        toggleMenu(module.id);
+                                    } else {
+                                        setActiveTab(module.id);
+                                        if (window.innerWidth < 1024) setMobileMenuOpen(false);
+                                    }
+                                }} 
+                                isOpen={isSidebarOpen || isMobileMenuOpen}
+                                isExpanded={expandedMenus[module.id]}
+                                onToggleExpand={() => toggleMenu(module.id)}
+                                subItems={module.subItems?.map(sub => ({
+                                    label: sub.label,
+                                    active: activeTab === sub.id,
+                                    onClick: () => {
+                                        setActiveTab(sub.id);
+                                        if (window.innerWidth < 1024) setMobileMenuOpen(false);
+                                    }
+                                }))}
+                            />
+                        </React.Fragment>
                     ))}
                 </nav>
 
